@@ -510,7 +510,9 @@
     if (cat) {
       setHead(cat.name, stripTags(cat.excerpt || ""), "<li>" + esc(cat.name) + "</li>");
       applyItemSeo(cat);
-      var cards, intro = cat.content ? '<div class="prose" style="margin-bottom:28px">' + cat.content + "</div>" : "";
+      var cards;
+      // Nội dung danh mục hiển thị PHÍA DƯỚI danh sách
+      var below = cat.content ? '<div class="prose cat-desc">' + cat.content + "</div>" : "";
       if (cat.type === "news") {
         // Chỉ dùng POSTS (module "Tin tức") — đã gộp Bài viết vào đây
         var news = (window.POSTS || []).filter(function (p) { return inCategory(p, cat.id); });
@@ -519,7 +521,7 @@
         var prods = (window.PRODUCTS || []).filter(function (p) { return inCategory(p, cat.id); });
         cards = (prods.length ? prods : (window.PRODUCTS || [])).map(productCard);
       }
-      body.innerHTML = '<div class="container section">' + intro + '<div class="grid grid--3">' + cards.join("") + "</div></div>";
+      body.innerHTML = '<div class="container section"><div class="grid grid--3">' + cards.join("") + "</div>" + below + "</div>";
       initReveal();
       return;
     }
