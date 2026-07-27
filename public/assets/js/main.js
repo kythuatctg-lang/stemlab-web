@@ -493,10 +493,9 @@
       applyItemSeo(cat);
       var cards, intro = cat.content ? '<div class="prose" style="margin-bottom:28px">' + cat.content + "</div>" : "";
       if (cat.type === "news") {
-        var news = (window.POSTS || []).filter(function (p) { return inCategory(p, cat.id); })
-          .concat((window.ARTICLES || []).filter(function (a) { return inCategory(a, cat.id); }));
-        cards = news.length ? news.map(function (x) { return x.group !== undefined ? articleCard(x) : newsCard(x); })
-                            : (window.POSTS || []).map(newsCard);
+        // Chỉ dùng POSTS (module "Tin tức") — đã gộp Bài viết vào đây
+        var news = (window.POSTS || []).filter(function (p) { return inCategory(p, cat.id); });
+        cards = (news.length ? news : (window.POSTS || [])).map(newsCard);
       } else {
         var prods = (window.PRODUCTS || []).filter(function (p) { return inCategory(p, cat.id); });
         cards = (prods.length ? prods : (window.PRODUCTS || [])).map(productCard);
