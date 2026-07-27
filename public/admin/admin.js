@@ -182,6 +182,7 @@
 
     renderFooterEditor();
     renderAboutEditor();
+    renderFaqEditor();
     renderColors();
     previewTheme();
   }
@@ -579,6 +580,52 @@
         renderAboutEditor(); markDirty();
       };
       r.readAsDataURL(f);
+    });
+  })();
+
+  /* ---------- Câu hỏi thường gặp (FAQ) ---------- */
+  function ensureFaq() {
+    if (!Array.isArray(draft.faq)) draft.faq = clone((window.SITE && window.SITE.faq) || []) || [];
+    return draft.faq;
+  }
+  function renderFaqEditor() {
+    var wrap = $("#faq-editor");
+    if (!wrap) return;
+    var list = ensureFaq();
+    wrap.innerHTML = list.map(function (it, i) {
+      return '<div class="about-item">' +
+        '<div class="about-item__fields">' +
+          '<input type="text" data-faq="q" data-fi="' + i + '" placeholder="Câu hỏi" value="' + escAttr(it.q) + '">' +
+          '<textarea data-faq="a" data-fi="' + i + '" rows="3" placeholder="Câu trả lời">' + escHtml(it.a) + "</textarea>" +
+        "</div>" +
+        '<div class="slide-item__ops">' +
+          '<button type="button" class="slide-op" data-faqop="up" title="Lên"' + (i === 0 ? " disabled" : "") + ">↑</button>" +
+          '<button type="button" class="slide-op" data-faqop="down" title="Xuống"' + (i === list.length - 1 ? " disabled" : "") + ">↓</button>" +
+          '<button type="button" class="slide-op slide-op--del" data-faqop="del" title="Xoá">✕</button>' +
+        "</div></div>";
+    }).join("");
+  }
+  (function bindFaqEditor() {
+    var wrap = document.getElementById("faq-editor");
+    if (!wrap) return;
+    wrap.addEventListener("input", function (e) {
+      var el = e.target.closest("[data-faq]");
+      if (!el) return;
+      var list = ensureFaq(), i = +el.dataset.fi;
+      if (list[i]) { list[i][el.dataset.faq] = el.value; markDirty(); }
+    });
+    wrap.addEventListener("click", function (e) {
+      var op = e.target.closest("[data-faqop]");
+      if (!op) return;
+      var list = ensureFaq(), i = +op.closest(".about-item").querySelector("[data-fi]").dataset.fi, o = op.dataset.faqop;
+      if (o === "del") list.splice(i, 1);
+      else if (o === "up" && i > 0) list.splice(i - 1, 0, list.splice(i, 1)[0]);
+      else if (o === "down" && i < list.length - 1) list.splice(i + 1, 0, list.splice(i, 1)[0]);
+      renderFaqEditor(); markDirty();
+    });
+    var add = document.getElementById("faq-add");
+    if (add) add.addEventListener("click", function () {
+      ensureFaq().push({ q: "", a: "" }); renderFaqEditor(); markDirty();
     });
   })();
 
@@ -1376,7 +1423,7 @@
   function addPanelSaveBars() {
     var labels = {
       brand: "Lưu cấu hình", banner: "Lưu banner", categories: "Lưu danh mục",
-      content: "Lưu nội dung", about: "Lưu trang giới thiệu", footer: "Lưu chân trang", pages: "Lưu trang giới thiệu", solutions: "Lưu giải pháp",
+      content: "Lưu nội dung", about: "Lưu trang giới thiệu", faq: "Lưu câu hỏi", footer: "Lưu chân trang", pages: "Lưu trang giới thiệu", solutions: "Lưu giải pháp",
       products: "Lưu sản phẩm", articles: "Lưu bài viết", posts: "Lưu tin tức",
       theme: "Lưu bảng màu",
     };

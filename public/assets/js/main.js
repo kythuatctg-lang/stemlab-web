@@ -151,6 +151,7 @@
     });
 
     renderFooter();
+    renderFaq();
 
     $$("[data-site-src]").forEach(function (el) {
       var val = get(SITE, el.getAttribute("data-site-src"));
@@ -316,6 +317,24 @@
       var target = document.getElementById(location.hash.slice(1));
       if (target) setTimeout(function () { target.scrollIntoView({ behavior: "smooth", block: "start" }); }, 80);
     }
+  }
+
+  // Câu hỏi thường gặp (trang Liên hệ) — dựng động từ SITE.faq, tự gắn accordion
+  function renderFaq() {
+    var wrap = $("[data-faq]");
+    if (!wrap) return;
+    var items = ((window.SITE && window.SITE.faq) || []).filter(function (x) { return x && (x.q || x.a); });
+    wrap.innerHTML = items.map(function (it) {
+      return '<div class="acc"><button class="acc__btn" type="button" aria-expanded="false">' + esc(it.q) +
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>' +
+        '<div class="acc__panel"><p>' + esc(it.a) + "</p></div></div>";
+    }).join("");
+    $$(".acc__btn", wrap).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var acc = btn.closest(".acc");
+        btn.setAttribute("aria-expanded", String(acc.classList.toggle("is-open")));
+      });
+    });
   }
 
   function renderStats() {

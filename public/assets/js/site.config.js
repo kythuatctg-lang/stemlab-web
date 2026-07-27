@@ -121,6 +121,15 @@ window.SITE = {
     },
   },
 
+  // Câu hỏi thường gặp (trang Liên hệ) — chỉnh trong Quản trị › Câu hỏi thường gặp
+  faq: [
+    { q: "Nhà trường có được dùng thử thiết bị trước khi mua không?", a: "Có. Chúng tôi hỗ trợ demo trực tiếp tại trường và cho mượn thiết bị trong các ngày hội STEM hoặc buổi dạy thử. Vui lòng gửi yêu cầu kèm thời gian dự kiến để chúng tôi sắp xếp." },
+    { q: "Có xuất hoá đơn và hồ sơ đấu thầu cho trường công lập không?", a: "Có. Chúng tôi cung cấp đầy đủ báo giá, hồ sơ năng lực, chứng nhận xuất xứ – chất lượng và hoá đơn điện tử theo quy định." },
+    { q: "Giáo viên chưa biết lập trình có dạy được không?", a: "Hoàn toàn được. Mỗi bộ thiết bị đi kèm giáo trình từng bước, slide bài giảng và video hướng dẫn. Ngoài ra, chúng tôi tổ chức tập huấn miễn phí cho trường mua thiết bị và có nhóm hỗ trợ riêng cho giáo viên." },
+    { q: "Chính sách bảo hành và hỗ trợ kỹ thuật như thế nào?", a: "Bảo hành 12 tháng cho lỗi kỹ thuật, đổi mới trong 7 ngày đầu nếu sản phẩm lỗi từ nhà sản xuất. Hỗ trợ kỹ thuật qua hotline và Zalo trong suốt quá trình sử dụng, kể cả sau khi hết hạn bảo hành." },
+    { q: "Có chương trình hỗ trợ cho trường vùng khó khăn không?", a: "Có. Hằng năm chúng tôi dành một phần ngân sách để tặng thiết bị, tổ chức lớp học miễn phí và cho mượn robot tại các địa bàn còn thiếu điều kiện. Nhà trường có thể gửi hồ sơ đề xuất qua form liên hệ." },
+  ],
+
   // Nội dung chân trang (footer) — chỉnh trong Quản trị › Footer
   footer: {
     connectTitle: "Kết nối với chúng tôi",
