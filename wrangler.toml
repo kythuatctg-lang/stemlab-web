@@ -9,4 +9,4 @@ pages_build_output_dir = "public"
 # copy Namespace ID rồi dán vào chỗ PASTE_KV_ID_HERE bên dưới, sau đó commit lại.
 [[kv_namespaces]]
 binding = "SETTINGS"
-id = "PASTE_KV_ID_HERE"
+id = "c9e3056b62fc498984627ed4efd8a42c"
