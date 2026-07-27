@@ -539,11 +539,11 @@
       var relCat = (Array.isArray(prod.categories) && prod.categories[0]) || prod.category || prod.group;
       var related = (window.PRODUCTS || []).filter(function (p) { return p.id !== prod.id && inCategory(p, relCat); });
       (window.PRODUCTS || []).slice().reverse().forEach(function (p) {
-        if (related.length < 4 && p.id !== prod.id && related.indexOf(p) < 0) related.push(p);
+        if (related.length < 3 && p.id !== prod.id && related.indexOf(p) < 0) related.push(p);
       });
-      var relItems = related.slice(0, 4);
+      var relItems = related.slice(0, 3);
       var relatedHtml = relItems.length
-        ? '<section class="pd-related"><h2>Sản phẩm liên quan</h2><div class="grid grid--4">' +
+        ? '<section class="pd-related"><h2>Sản phẩm liên quan</h2><div class="grid grid--3">' +
             relItems.map(productCard).join("") + "</div></section>"
         : "";
 
