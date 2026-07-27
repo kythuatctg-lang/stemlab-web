@@ -179,6 +179,7 @@
     var ap = getPath(draft, "hero.autoplay") || (window.SITE.hero && window.SITE.hero.autoplay) || 6000;
     $("#hero-autoplay").value = Math.round(ap / 1000);
     renderSlides();
+    renderHeroTextEditor();
 
     renderFooterEditor();
     renderAboutEditor();
@@ -626,6 +627,85 @@
     var add = document.getElementById("faq-add");
     if (add) add.addEventListener("click", function () {
       ensureFaq().push({ q: "", a: "" }); renderFaqEditor(); markDirty();
+    });
+  })();
+
+  /* ---------- Banner chữ (hero text slides) ---------- */
+  var heroTextUpload = null;
+  function heroTexts() {
+    if (!draft.hero || typeof draft.hero !== "object") draft.hero = clone((window.SITE && window.SITE.hero) || {}) || {};
+    if (!Array.isArray(draft.hero.textSlides)) draft.hero.textSlides = clone((window.SITE.hero && window.SITE.hero.textSlides)) || [];
+    return draft.hero.textSlides;
+  }
+  function heroTextThumb(src, i, field, label) {
+    return '<button type="button" class="about-thumb" data-ht-img="' + i + '" data-htf="' + field + '">' +
+      (src ? '<img src="' + escAttr(adminSrc(src)) + '" alt="">' : "<span>" + label + "</span>") + "</button>";
+  }
+  function renderHeroTextEditor() {
+    var wrap = $("#herotext-editor");
+    if (!wrap) return;
+    var list = heroTexts();
+    wrap.innerHTML = list.map(function (s, i) {
+      return '<div class="about-item" style="align-items:flex-start">' +
+        heroTextThumb(s.image, i, "image", "＋ Ảnh") +
+        '<div class="about-item__fields">' +
+          '<input type="text" data-ht="eyebrow" data-hi="' + i + '" placeholder="Nhãn nhỏ (vd: Robocon 2026)" value="' + escAttr(s.eyebrow) + '">' +
+          '<label class="chk" style="font-size:.86rem;margin:0"><input type="checkbox" data-ht="accent" data-hi="' + i + '"' + (s.accent ? " checked" : "") + '> Nhãn màu nổi bật (cam)</label>' +
+          '<input type="text" data-ht="title" data-hi="' + i + '" placeholder="Tiêu đề" value="' + escAttr(s.title) + '">' +
+          '<textarea data-ht="lead" data-hi="' + i + '" rows="2" placeholder="Mô tả ngắn">' + escHtml(s.lead) + "</textarea>" +
+          '<textarea data-ht="points" data-hi="' + i + '" rows="3" placeholder="Gạch đầu dòng — mỗi dòng một ý">' + escHtml((s.points || []).join("\n")) + "</textarea>" +
+          '<div class="ht-btns"><input type="text" data-ht="btn1" data-hi="' + i + '" placeholder="Nút 1 – chữ" value="' + escAttr(s.btn1) + '"><input type="text" data-ht="btn1Link" data-hi="' + i + '" placeholder="Nút 1 – link" value="' + escAttr(s.btn1Link) + '"></div>' +
+          '<div class="ht-btns"><input type="text" data-ht="btn2" data-hi="' + i + '" placeholder="Nút 2 – chữ" value="' + escAttr(s.btn2) + '"><input type="text" data-ht="btn2Link" data-hi="' + i + '" placeholder="Nút 2 – link" value="' + escAttr(s.btn2Link) + '"></div>' +
+          '<div style="display:flex;gap:8px;align-items:center;font-size:.85rem;color:var(--c-muted)"><span>Ảnh nền:</span>' + heroTextThumb(s.bg, i, "bg", "＋ Nền") + "</div>" +
+        "</div>" +
+        '<div class="slide-item__ops">' +
+          '<button type="button" class="slide-op" data-htop="up" title="Lên"' + (i === 0 ? " disabled" : "") + ">↑</button>" +
+          '<button type="button" class="slide-op" data-htop="down" title="Xuống"' + (i === list.length - 1 ? " disabled" : "") + ">↓</button>" +
+          '<button type="button" class="slide-op slide-op--del" data-htop="del" title="Xoá">✕</button>' +
+        "</div></div>";
+    }).join("");
+  }
+  (function bindHeroTextEditor() {
+    var wrap = document.getElementById("herotext-editor");
+    if (!wrap) return;
+    wrap.addEventListener("input", function (e) {
+      var el = e.target.closest("[data-ht]");
+      if (!el) return;
+      var list = heroTexts(), i = +el.dataset.hi, f = el.dataset.ht;
+      if (!list[i]) return;
+      if (el.type === "checkbox") list[i][f] = el.checked;
+      else if (f === "points") list[i].points = el.value.split(/\r?\n/);
+      else list[i][f] = el.value;
+      markDirty();
+    });
+    wrap.addEventListener("click", function (e) {
+      var op = e.target.closest("[data-htop]");
+      if (op) {
+        var list = heroTexts(), i = +op.closest(".about-item").querySelector("[data-hi]").dataset.hi, o = op.dataset.htop;
+        if (o === "del") list.splice(i, 1);
+        else if (o === "up" && i > 0) list.splice(i - 1, 0, list.splice(i, 1)[0]);
+        else if (o === "down" && i < list.length - 1) list.splice(i + 1, 0, list.splice(i, 1)[0]);
+        renderHeroTextEditor(); markDirty(); return;
+      }
+      var img = e.target.closest("[data-ht-img]");
+      if (img) { heroTextUpload = { i: +img.dataset.htImg, f: img.dataset.htf }; $("#herotext-file").click(); }
+    });
+    var add = document.getElementById("herotext-add");
+    if (add) add.addEventListener("click", function () {
+      heroTexts().push({ eyebrow: "", accent: false, title: "Slide mới", lead: "", points: [], btn1: "", btn1Link: "", btn2: "", btn2Link: "", image: "", bg: "" });
+      renderHeroTextEditor(); markDirty();
+    });
+    var file = document.getElementById("herotext-file");
+    if (file) file.addEventListener("change", function () {
+      var f = this.files && this.files[0]; this.value = "";
+      if (!f || !heroTextUpload) return;
+      if (f.size > 2.3 * 1024 * 1024) { alert("Ảnh quá lớn (tối đa ~2.3MB)."); return; }
+      var r = new FileReader();
+      r.onload = function () {
+        var list = heroTexts();
+        if (list[heroTextUpload.i]) { list[heroTextUpload.i][heroTextUpload.f] = r.result; renderHeroTextEditor(); markDirty(); }
+      };
+      r.readAsDataURL(f);
     });
   })();
 

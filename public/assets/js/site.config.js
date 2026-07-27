@@ -38,6 +38,33 @@ window.SITE = {
     slides: [],
     fit: "cover",
     autoplay: 6000,
+    // Banner chữ mặc định (hiển thị khi chưa upload ảnh banner) — chỉnh trong Quản trị › Banner
+    textSlides: [
+      {
+        eyebrow: "Giải pháp cho nhà trường", accent: false,
+        title: "Cung cấp giải pháp toàn diện cho giáo dục STEM",
+        lead: "Thiết bị – giáo trình – tập huấn – sân chơi. Một hệ sinh thái duy nhất giúp nhà trường triển khai STEM từ tiết học đầu tiên đến giải đấu Robotics.",
+        points: ["Phù hợp cấp Mầm non, Tiểu học, THCS, THPT và sinh viên", "Giáo trình biên soạn theo chương trình GDPT 2018", "Tập huấn giáo viên & hỗ trợ kỹ thuật trọn đời"],
+        btn1: "Khám phá sản phẩm", btn1Link: "san-pham.html", btn2: "Nhận tư vấn miễn phí", btn2Link: "lien-he.html",
+        image: "assets/img/hero-robot-1.svg", bg: "assets/img/hero-bg-1.svg",
+      },
+      {
+        eyebrow: "Robocon 2026", accent: true,
+        title: "Kết hợp thi đấu & tập huấn về STEM Robotics",
+        lead: "Sân chơi công nghệ phi lợi nhuận dành cho học sinh phổ thông, giúp các em rèn tư duy giải quyết vấn đề và làm việc nhóm.",
+        points: ["Mượn robot và sân thi đấu miễn phí", "Phù hợp cả với người mới tìm hiểu từ số 0", "Ba bảng đấu: Tiểu học – THCS – THPT & sinh viên"],
+        btn1: "Tìm hiểu giải đấu", btn1Link: "tin-tuc.html", btn2: "Đăng ký đội thi", btn2Link: "lien-he.html",
+        image: "assets/img/hero-robot-2.svg", bg: "assets/img/hero-bg-2.svg",
+      },
+      {
+        eyebrow: "Dành cho giáo viên", accent: false,
+        title: "Đào tạo & đồng hành cùng thầy cô trên mọi tiết học STEM",
+        lead: "Chương trình tập huấn thực hành, kho bài giảng mẫu và cộng đồng hơn 8.000 giáo viên cùng chia sẻ kinh nghiệm mỗi ngày.",
+        points: ["Hơn 200 giáo án STEM soạn sẵn theo chủ đề", "Khoá học online có chứng nhận hoàn thành", "Hỗ trợ kỹ thuật 1-1 qua Zalo & hotline"],
+        btn1: "Xem chương trình", btn1Link: "#ho-tro", btn2: "Liên hệ tập huấn", btn2Link: "lien-he.html",
+        image: "assets/img/hero-robot-3.svg", bg: "assets/img/hero-bg-3.svg",
+      },
+    ],
   },
 
   /* Bảng màu nhận diện — lấy từ logo STEM Lab.

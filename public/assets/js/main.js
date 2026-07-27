@@ -790,6 +790,27 @@
     return slides.map(function (s) { return (s.image || "").slice(0, 40) + "|" + (s.link || "") + "|" + (s.alt || ""); }).join("~");
   }
 
+  var HERO_CHECK = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+  function heroTextSlide(s, i) {
+    var points = (Array.isArray(s.points) ? s.points : []).filter(Boolean)
+      .map(function (p) { return "<li>" + HERO_CHECK + " " + esc(p) + "</li>"; }).join("");
+    var btn = function (txt, link, cls) {
+      return txt ? '<a class="btn ' + cls + '" href="' + esc(link || "#") + '">' + esc(txt) + "</a>" : "";
+    };
+    var eyebrow = s.eyebrow ? '<span class="eyebrow' + (s.accent ? " eyebrow--accent" : "") + '">' + esc(s.eyebrow) + "</span>" : "";
+    return '<div class="hero__slide">' +
+      (s.bg ? '<div class="hero__bg" style="background-image:url(\'' + esc(s.bg) + "')\"></div>" : "") +
+      '<div class="container hero__body"><div class="hero__content">' +
+        eyebrow +
+        '<h2 class="hero__title">' + esc(s.title) + "</h2>" +
+        (s.lead ? '<p class="hero__lead">' + esc(s.lead) + "</p>" : "") +
+        (points ? '<ul class="hero__points">' + points + "</ul>" : "") +
+        '<div class="hero__cta">' + btn(s.btn1, s.btn1Link, "btn--accent") + btn(s.btn2, s.btn2Link, "btn--light") + "</div>" +
+      "</div>" +
+      (s.image ? '<div class="hero__media"><img src="' + esc(s.image) + '" alt="" width="520" height="520"></div>' : "") +
+      "</div>";
+  }
+
   function setupHero() {
     var hero = $("[data-carousel]");
     if (!hero) return;
@@ -813,12 +834,19 @@
       hero.classList.add("hero--image");
       hero.classList.toggle("hero--contain", cfg.fit === "contain");
     } else {
-      // Không có ảnh -> trả về giao diện chữ mặc định
-      if (hero.classList.contains("hero--image")) {
+      hero.classList.remove("hero--image", "hero--contain");
+      // Không có ảnh -> dùng slide chữ (từ cấu hình nếu có, không thì HTML mặc định)
+      var texts = Array.isArray(cfg.textSlides) ? cfg.textSlides.filter(function (s) { return s && s.title; }) : [];
+      if (texts.length) {
+        var tsig = "text:" + texts.length + ":" + (texts[0].title || "") + ":" + (texts[texts.length - 1].title || "");
+        if (hero.dataset.heroSig !== tsig) {
+          track.innerHTML = texts.map(heroTextSlide).join("");
+          hero.dataset.heroSig = tsig;
+        }
+      } else if (hero.dataset.heroSig || hero.classList.contains("hero--image")) {
         track.innerHTML = HERO.defaultHTML;
         hero.removeAttribute("data-hero-sig");
       }
-      hero.classList.remove("hero--image", "hero--contain");
     }
 
     if (cfg.autoplay) hero.setAttribute("data-carousel", cfg.autoplay);
