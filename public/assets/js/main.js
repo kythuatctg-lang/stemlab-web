@@ -510,19 +510,37 @@
     if (cat) {
       setHead(cat.name, stripTags(cat.excerpt || ""), "<li>" + esc(cat.name) + "</li>");
       applyItemSeo(cat);
-      var cards;
       // Nội dung danh mục hiển thị PHÍA DƯỚI danh sách
       var below = cat.content ? '<div class="prose cat-desc">' + cat.content + "</div>" : "";
+      var catItems, catCard;
       if (cat.type === "news") {
         // Chỉ dùng POSTS (module "Tin tức") — đã gộp Bài viết vào đây
         var news = (window.POSTS || []).filter(function (p) { return inCategory(p, cat.id); });
-        cards = (news.length ? news : (window.POSTS || [])).map(newsCard);
+        catItems = news.length ? news : (window.POSTS || []); catCard = newsCard;
       } else {
         var prods = (window.PRODUCTS || []).filter(function (p) { return inCategory(p, cat.id); });
-        cards = (prods.length ? prods : (window.PRODUCTS || [])).map(productCard);
+        catItems = prods.length ? prods : (window.PRODUCTS || []); catCard = productCard;
       }
-      body.innerHTML = '<div class="container section"><div class="grid grid--3">' + cards.join("") + "</div>" + below + "</div>";
-      initReveal();
+      var catPage = 1, catTotal = Math.max(1, Math.ceil(catItems.length / LIST_PER_PAGE));
+      body.innerHTML = '<div class="container section"><div class="grid grid--3" data-cat-grid></div>' +
+        '<nav class="pager" data-cat-pager aria-label="Phân trang"></nav>' + below + "</div>";
+      var catGrid = $("[data-cat-grid]", body), catPager = $("[data-cat-pager]", body);
+      var drawCat = function () {
+        var start = (catPage - 1) * LIST_PER_PAGE;
+        catGrid.innerHTML = catItems.slice(start, start + LIST_PER_PAGE).map(catCard).join("");
+        catPager.innerHTML = pagerHtml(catPage, catTotal);
+        initReveal();
+      };
+      catPager.addEventListener("click", function (e) {
+        var b = e.target.closest("[data-pg]");
+        if (!b || b.disabled) return;
+        var v = b.dataset.pg;
+        catPage = v === "prev" ? catPage - 1 : v === "next" ? catPage + 1 : +v;
+        if (catPage < 1) catPage = 1; if (catPage > catTotal) catPage = catTotal;
+        drawCat();
+        window.scrollTo({ top: catGrid.getBoundingClientRect().top + window.pageYOffset - 90, behavior: "smooth" });
+      });
+      drawCat();
       return;
     }
     // 2. Sản phẩm
@@ -1270,16 +1288,55 @@
     );
   }
 
+  // Danh sách số trang có dấu "…" cho gọn khi nhiều trang
+  function pageList(cur, total) {
+    var arr = [];
+    for (var i = 1; i <= total; i++) {
+      if (i === 1 || i === total || (i >= cur - 1 && i <= cur + 1)) arr.push(i);
+      else if (arr[arr.length - 1] !== "…") arr.push("…");
+    }
+    return arr;
+  }
+  function pagerHtml(page, totalPages) {
+    if (totalPages <= 1) return "";
+    var html = '<button class="pager__btn pager__nav" type="button" data-pg="prev"' + (page === 1 ? " disabled" : "") + ">‹</button>";
+    pageList(page, totalPages).forEach(function (n) {
+      html += n === "…" ? '<span class="pager__gap">…</span>'
+        : '<button class="pager__btn' + (n === page ? " is-active" : "") + '" type="button" data-pg="' + n + '">' + n + "</button>";
+    });
+    return html + '<button class="pager__btn pager__nav" type="button" data-pg="next"' + (page === totalPages ? " disabled" : "") + ">›</button>";
+  }
+  var LIST_PER_PAGE = 12;
+
   function initListing(config) {
     var grid = $(config.gridSel);
     if (!grid) return;
 
+    var perPage = config.perPage || 12;
     var chipsWrap = $(config.chipsSel);
     var searchInput = $(config.searchSel);
     var empty = $(config.emptySel);
     // Lọc sẵn theo ?cat= (do menu danh mục truyền sang)
     var preCat = new URLSearchParams(location.search).get("cat") || "all";
-    var state = { cat: preCat, q: "" };
+    var state = { cat: preCat, q: "", page: 1 };
+
+    // Vùng phân trang (tạo ngay sau lưới nếu chưa có)
+    var pager = grid.nextElementSibling && grid.nextElementSibling.classList.contains("pager") ? grid.nextElementSibling : null;
+    if (!pager) {
+      pager = document.createElement("nav");
+      pager.className = "pager";
+      pager.setAttribute("aria-label", "Phân trang");
+      grid.parentNode.insertBefore(pager, grid.nextSibling);
+    }
+    pager.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-pg]");
+      if (!b || b.disabled) return;
+      var v = b.dataset.pg;
+      state.page = v === "prev" ? state.page - 1 : v === "next" ? state.page + 1 : +v;
+      render();
+      var y = grid.getBoundingClientRect().top + window.pageYOffset - 90;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    });
 
     if (chipsWrap && config.categories) {
       chipsWrap.innerHTML = config.categories
@@ -1294,6 +1351,7 @@
         $$(".chip", chipsWrap).forEach(function (c) { c.classList.remove("is-active"); });
         chip.classList.add("is-active");
         state.cat = chip.dataset.cat;
+        state.page = 1;
         render();
       });
     }
@@ -1302,22 +1360,27 @@
       var t;
       searchInput.addEventListener("input", function () {
         clearTimeout(t);
-        t = setTimeout(function () { state.q = searchInput.value.trim().toLowerCase(); render(); }, 180);
+        t = setTimeout(function () { state.q = searchInput.value.trim().toLowerCase(); state.page = 1; render(); }, 180);
       });
     }
 
     function render() {
       var items = typeof config.items === "function" ? config.items() : config.items;
       var list = (items || []).filter(function (item) {
-        var okCat = state.cat === "all" || item.category === state.cat;
+        var okCat = state.cat === "all" || inCategory(item, state.cat);
         var haystack = (item.name || item.title || "") + " " + (item.excerpt || "");
         var okQ = !state.q || haystack.toLowerCase().indexOf(state.q) > -1;
         return okCat && okQ;
       });
-      grid.innerHTML = list.map(config.template).join("");
+      var totalPages = Math.max(1, Math.ceil(list.length / perPage));
+      if (state.page > totalPages) state.page = totalPages;
+      if (state.page < 1) state.page = 1;
+      var start = (state.page - 1) * perPage;
+      grid.innerHTML = list.slice(start, start + perPage).map(config.template).join("");
       if (empty) empty.classList.toggle("is-visible", list.length === 0);
       var counter = $(config.countSel || "[data-result-count]");
       if (counter) counter.textContent = list.length;
+      pager.innerHTML = pagerHtml(state.page, totalPages);
       initReveal();
     }
 

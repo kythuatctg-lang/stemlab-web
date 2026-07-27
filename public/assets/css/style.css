@@ -1409,5 +1409,17 @@ input, textarea, select { font: inherit; }
   body { color: #000; }
 }
 
+/* Phân trang danh sách */
+.pager { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: clamp(32px, 4vw, 52px); }
+.pager:empty { display: none; }
+.pager__btn { min-width: 42px; height: 42px; padding: 0 12px; display: inline-grid; place-items: center;
+  border: 1px solid var(--c-line); border-radius: var(--r-sm); background: #fff; color: var(--c-ink);
+  font-weight: 700; font-size: .95rem; transition: border-color var(--t-fast), background var(--t-fast), color var(--t-fast); }
+.pager__btn:hover:not(:disabled):not(.is-active) { border-color: var(--c-primary); color: var(--c-primary-700); }
+.pager__btn.is-active { background: var(--c-primary); border-color: var(--c-primary); color: #fff; cursor: default; }
+.pager__btn:disabled { opacity: .4; cursor: not-allowed; }
+.pager__nav { font-size: 1.2rem; }
+.pager__gap { min-width: 30px; height: 42px; display: inline-grid; place-items: center; color: var(--c-muted); }
+
 /* Nội dung danh mục hiển thị dưới danh sách (full chiều rộng như grid) */
 .cat-desc { margin: clamp(36px,5vw,64px) 0 0; padding-top: clamp(28px,3vw,44px); border-top: 1px solid var(--c-line); }
