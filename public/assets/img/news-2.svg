@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="GIẢI ĐẤU">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#23bff0"/><stop offset="1" stop-color="#0682b6"/></linearGradient></defs>
+  <rect width="800" height="500" fill="url(#g)"/><circle cx="740" cy="351" r="35" fill="#fff" opacity="0.079"/><circle cx="650" cy="434" r="28" fill="#fff" opacity="0.146"/><circle cx="586" cy="463" r="37" fill="#fff" opacity="0.053"/><circle cx="416" cy="38" r="29" fill="#fff" opacity="0.064"/><circle cx="485" cy="486" r="90" fill="#fff" opacity="0.099"/><circle cx="213" cy="102" r="56" fill="#fff" opacity="0.119"/><circle cx="697" cy="171" r="58" fill="#fff" opacity="0.097"/><circle cx="642" cy="265" r="78" fill="#fff" opacity="0.095"/><circle cx="211" cy="293" r="47" fill="#fff" opacity="0.054"/><circle cx="96" cy="42" r="40" fill="#fff" opacity="0.078"/><circle cx="782" cy="145" r="55" fill="#fff" opacity="0.126"/><circle cx="167" cy="319" r="31" fill="#fff" opacity="0.15"/><circle cx="273" cy="361" r="45" fill="#fff" opacity="0.145"/><circle cx="224" cy="293" r="46" fill="#fff" opacity="0.056"/>
+  <g opacity=".92">
+    <rect x="300" y="196" width="200" height="118" rx="26" fill="#ffffff" opacity=".92"/>
+    <circle cx="356" cy="246" r="16" fill="#0682b6"/><circle cx="444" cy="246" r="16" fill="#0682b6"/>
+    <path d="M352 288q48 26 96 0" stroke="#0682b6" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <path d="M400 196v-30" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/><circle cx="400" cy="156" r="14" fill="#ffd21e"/>
+  </g>
+  <text x="400" y="404" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="30" font-weight="700" fill="#ffffff" opacity=".9">GIẢI ĐẤU</text>
+</svg>

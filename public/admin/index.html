@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Quản trị website · STEM Lab</title>
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="admin.css">
+<!-- Trình soạn thảo văn bản (CKEditor 4, tiếng Việt) cho các trường Tóm tắt / Nội dung -->
+<script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
+</head>
+<body class="admin">
+
+<!-- ============ MÀN ĐĂNG NHẬP ============ -->
+<section class="login" id="login-view" hidden>
+  <form class="login__card" id="login-form">
+    <img src="../assets/img/logo-full.svg" alt="STEM Lab" class="login__logo">
+    <h1>Đăng nhập quản trị</h1>
+    <p class="login__sub">Nhập mật khẩu quản trị để chỉnh sửa thương hiệu, logo và nội dung website.</p>
+    <div class="field">
+      <label for="password">Mật khẩu</label>
+      <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="••••••••">
+    </div>
+    <button class="btn btn--primary btn--block" type="submit" id="login-btn">Đăng nhập</button>
+    <p class="login__msg form-note" id="login-msg" role="status"></p>
+  </form>
+</section>
+
+<!-- ============ BẢNG ĐIỀU KHIỂN ============ -->
+<div class="dash" id="dash-view" hidden>
+
+  <!-- Sidebar -->
+  <aside class="dash__side">
+    <a class="dash__brand" href="../index.html" target="_blank" rel="noopener">
+      <img src="../assets/img/logo.svg" alt="" width="36" height="36">
+      <span class="dash__brand-txt">STEM Lab<small>Bảng điều khiển</small></span>
+    </a>
+    <nav class="dash__nav" id="dash-nav" aria-label="Mục quản trị">
+      <p class="dash__navgroup">Giao diện</p>
+      <button class="dash__tab is-active" data-tab="brand" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 7 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3 15a1.6 1.6 0 0 0-1.1-2.7H2a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 7L4.5 7a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 9 4.6h.1"/></svg><span>Cấu hình</span></button>
+      <button class="dash__tab" data-tab="banner" type="button"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 15l5-4 4 3 3-2 6 4"/><circle cx="8.5" cy="9.5" r="1.5"/></svg><span>Banner (slider ảnh)</span></button>
+      <button class="dash__tab" data-tab="theme" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10.5" r="1"/><circle cx="15.5" cy="10.5" r="1"/><circle cx="12" cy="15" r="1"/></svg><span>Bảng màu</span></button>
+
+      <p class="dash__navgroup">Nội dung</p>
+      <button class="dash__tab" data-tab="categories" type="button"><svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h13M10 18h10"/><circle cx="4.5" cy="12" r="1"/><circle cx="7.5" cy="18" r="1"/></svg><span>Danh mục (menu)</span></button>
+      <button class="dash__tab" data-tab="content" type="button"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h7"/></svg><span>Nội dung trang chủ</span></button>
+      <button class="dash__tab" data-tab="about" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Trang Giới thiệu</span></button>
+      <button class="dash__tab" data-tab="footer" type="button"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15h18M7 19h4"/></svg><span>Chân trang (Footer)</span></button>
+      <button class="dash__tab" data-tab="pages" type="button"><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span>Trang giới thiệu</span></button>
+      <button class="dash__tab" data-tab="solutions" type="button"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4z"/><path d="M7 10v5c0 1.5 2.2 3 5 3s5-1.5 5-3v-5"/></svg><span>Giải pháp</span></button>
+      <button class="dash__tab" data-tab="products" type="button"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg><span>Sản phẩm</span></button>
+      <button class="dash__tab" data-tab="articles" type="button"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>Bài viết</span></button>
+      <button class="dash__tab" data-tab="posts" type="button"><svg viewBox="0 0 24 24"><path d="M4 5h13v14H4z"/><path d="M17 9h3v8a2 2 0 0 1-2 2M8 9h5M8 13h5"/></svg><span>Tin tức</span></button>
+
+      <p class="dash__navgroup">Liên hệ &amp; thông tin</p>
+      <button class="dash__tab" data-tab="inbox" type="button"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Hộp thư liên hệ</span></button>
+      <button class="dash__tab" data-tab="reviews" type="button"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.6l1-5.8L3.5 9.7l5.9-.9z"/></svg><span>Đánh giá sản phẩm</span></button>
+    </nav>
+  </aside>
+
+  <!-- Cột nội dung -->
+  <div class="dash__col">
+    <header class="dash__top">
+      <div>
+        <h1 class="dash__title" id="dash-title">Cấu hình</h1>
+        <p class="dash__crumb">Quản trị / <span id="dash-crumb">Cấu hình</span></p>
+      </div>
+      <div class="dash__actions">
+        <a class="btn btn--ghost btn--sm" href="../index.html" target="_blank" rel="noopener">Xem website ↗</a>
+        <button class="btn btn--ghost btn--sm" id="logout-btn" type="button">Đăng xuất</button>
+      </div>
+    </header>
+
+    <form class="dash__main" id="settings-form">
+
+      <!-- TAB: CẤU HÌNH -->
+      <section class="panel is-active" data-panel="brand">
+        <h2>Cấu hình site</h2>
+        <p class="hint">Thông tin thương hiệu, liên hệ và SEO — hiển thị động ra toàn bộ giao diện website.</p>
+
+        <h3 class="cfg-group">Logo &amp; hình ảnh</h3>
+        <div class="logo-editor">
+          <div class="logo-editor__preview" id="logo-preview-wrap">
+            <img id="logo-preview" src="../assets/img/logo.svg" alt="Xem trước logo">
+          </div>
+          <div class="logo-editor__control">
+            <h3>Logo website (biểu tượng)</h3>
+            <p class="hint">Hiển thị ở đầu trang và chân trang. Nên dùng PNG/SVG nền trong suốt, ảnh vuông.</p>
+            <div class="uploader" id="logo-uploader">
+              <input type="file" id="logo-file" accept="image/png,image/jpeg,image/svg+xml,image/webp" hidden>
+              <button class="btn btn--primary btn--sm" type="button" id="logo-pick">Tải logo lên</button>
+              <button class="btn btn--ghost btn--sm" type="button" id="logo-reset">Về mặc định</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="logo-editor" style="margin-top:16px">
+          <div class="logo-editor__preview" id="favicon-preview-wrap">
+            <img id="favicon-preview" src="../assets/img/logo.svg" alt="Xem trước favicon">
+          </div>
+          <div class="logo-editor__control">
+            <h3>Favicon (biểu tượng tab trình duyệt)</h3>
+            <p class="hint">Ảnh vuông nhỏ (32×32 hoặc 64×64). Bỏ trống sẽ dùng logo.</p>
+            <div class="uploader">
+              <input type="file" id="favicon-file" accept="image/png,image/x-icon,image/svg+xml,image/webp" hidden>
+              <button class="btn btn--primary btn--sm" type="button" id="favicon-pick">Tải favicon lên</button>
+              <button class="btn btn--ghost btn--sm" type="button" id="favicon-reset">Về mặc định</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="logo-editor" style="margin-top:16px">
+          <div class="logo-editor__preview logo-editor__preview--wide" id="og-preview-wrap">
+            <img id="og-preview" src="../assets/img/news-1.svg" alt="Xem trước ảnh SEO">
+          </div>
+          <div class="logo-editor__control">
+            <h3>Ảnh SEO / chia sẻ mạng xã hội</h3>
+            <p class="hint">Hiển thị khi chia sẻ link lên Facebook/Zalo (nên ~1200×630). Bỏ trống sẽ dùng logo.</p>
+            <div class="uploader">
+              <input type="file" id="og-file" accept="image/png,image/jpeg,image/webp" hidden>
+              <button class="btn btn--primary btn--sm" type="button" id="og-pick">Tải ảnh lên</button>
+              <button class="btn btn--ghost btn--sm" type="button" id="og-reset">Về mặc định</button>
+            </div>
+          </div>
+        </div>
+        <div class="logo-editor" style="margin-top:16px">
+          <div class="logo-editor__preview logo-editor__preview--wide" id="logofull-preview-wrap">
+            <img id="logofull-preview" src="../assets/img/logo-full.svg" alt="Xem trước logo đầy đủ">
+          </div>
+          <div class="logo-editor__control">
+            <h3>Logo đầy đủ (có chữ)</h3>
+            <p class="hint">Dùng cho màn đăng nhập quản trị. Không bắt buộc.</p>
+            <div class="uploader">
+              <input type="file" id="logofull-file" accept="image/png,image/jpeg,image/svg+xml,image/webp" hidden>
+              <button class="btn btn--primary btn--sm" type="button" id="logofull-pick">Tải lên</button>
+              <button class="btn btn--ghost btn--sm" type="button" id="logofull-reset">Mặc định</button>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="cfg-group">Thương hiệu</h3>
+        <div class="grid grid--2">
+          <div class="field"><label for="brand-name">Tên công ty</label><input id="brand-name" data-key="brand.name" type="text" placeholder="STEM Lab"></div>
+          <div class="field"><label for="brand-tagline">Khẩu hiệu ngắn (dưới tên)</label><input id="brand-tagline" data-key="brand.tagline" type="text" placeholder="Học – Thí nghiệm – Sáng tạo"></div>
+        </div>
+        <div class="field"><label for="brand-slogan">Slogan (câu giới thiệu)</label><input id="brand-slogan" data-key="brand.slogan" type="text"></div>
+        <label class="switch"><input type="checkbox" id="brand-showtext" data-key="brand.showBrandText"><span>Hiển thị chữ tên thương hiệu cạnh logo <em>(tắt nếu logo đã có sẵn chữ)</em></span></label>
+
+        <h3 class="cfg-group">Liên hệ</h3>
+        <div class="grid grid--2">
+          <div class="field"><label for="c-phone">Hotline 1</label><input id="c-phone" data-key="contact.phone" type="text" placeholder="1900 0000"></div>
+          <div class="field"><label for="c-hotline">Hotline 2</label><input id="c-hotline" data-key="contact.hotline" type="text" placeholder="090 000 0000"></div>
+          <div class="field"><label for="c-email">Email</label><input id="c-email" data-key="contact.email" type="text" placeholder="contact@stemlab.vn"></div>
+          <div class="field"><label for="co-hours">Giờ làm việc</label><input id="co-hours" data-key="company.workingHours" type="text"></div>
+        </div>
+        <div class="field"><label for="co-address">Địa chỉ</label><input id="co-address" data-key="company.address" type="text"></div>
+        <div class="grid grid--2">
+          <div class="field"><label for="co-tax">Mã số thuế</label><input id="co-tax" data-key="company.taxCode" type="text"></div>
+          <div class="field"><label for="c-legal">Tên pháp lý (chân trang)</label><input id="c-legal" data-key="company.legalName" type="text"></div>
+        </div>
+        <div class="field"><label for="c-map">Link nhúng Google Maps (URL embed)</label><input id="c-map" data-key="contact.mapEmbed" type="text" placeholder="Bỏ trống: tự tạo theo Địa chỉ"></div>
+
+        <h3 class="cfg-group">Mạng xã hội</h3>
+        <div class="grid grid--2">
+          <div class="field"><label for="s-fb">Facebook URL</label><input id="s-fb" data-key="social.facebook" type="text"></div>
+          <div class="field"><label for="s-yt">YouTube URL</label><input id="s-yt" data-key="social.youtube" type="text"></div>
+          <div class="field"><label for="s-tt">TikTok URL</label><input id="s-tt" data-key="social.tiktok" type="text"></div>
+          <div class="field"><label for="c-zalo">Zalo URL</label><input id="c-zalo" data-key="contact.zalo" type="text"></div>
+        </div>
+
+        <h3 class="cfg-group">SEO &amp; giới thiệu</h3>
+        <div class="field"><label for="seo-title">Tiêu đề SEO (trang chủ)</label><input id="seo-title" data-key="seo.homeTitle" type="text"></div>
+        <div class="field"><label for="seo-desc">Mô tả SEO (trang chủ)</label><textarea id="seo-desc" data-key="seo.homeDescription" style="min-height:80px"></textarea></div>
+        <div class="field"><label for="co-footer">Giới thiệu (chân trang)</label><textarea id="co-footer" data-key="company.footerIntro" style="min-height:80px"></textarea></div>
+      </section>
+
+      <!-- TAB: BANNER -->
+      <section class="panel" data-panel="banner">
+        <h2>Banner trang chủ (slider ảnh)</h2>
+        <p class="hint">Tải lên các ảnh banner bạn đã thiết kế. Mỗi ảnh là một slide, tự động chuyển.
+          Khuyến nghị kích thước <strong>1920×720px</strong>, đã nén nhẹ (dưới ~400KB/ảnh).
+          Nếu không có ảnh nào, trang chủ dùng banner chữ mặc định.</p>
+
+        <div class="banner-tools">
+          <div class="field field--inline">
+            <label for="hero-fit">Cách hiển thị ảnh</label>
+            <select id="hero-fit" data-hero="fit">
+              <option value="cover">Lấp đầy khung (có thể cắt mép)</option>
+              <option value="contain">Hiện trọn ảnh (không cắt)</option>
+            </select>
+          </div>
+          <div class="field field--inline">
+            <label for="hero-autoplay">Thời gian mỗi slide (giây)</label>
+            <input id="hero-autoplay" data-hero="autoplay" type="number" min="2" max="15" step="1" value="6">
+          </div>
+        </div>
+
+        <div id="slides-list" class="slides-list"><!-- render bằng JS --></div>
+
+        <p class="banner-empty hint" id="banner-empty" hidden>Chưa có banner nào — bấm “Thêm banner” để tải ảnh lên.</p>
+
+        <button class="btn btn--ghost" type="button" id="add-slide">＋ Thêm banner</button>
+        <input type="file" id="slide-file" accept="image/png,image/jpeg,image/webp,image/svg+xml" hidden>
+      </section>
+
+      <!-- TAB: DANH MỤC (sinh menu chính) -->
+      <section class="panel" data-panel="categories">
+        <div class="panel-head">
+          <div><h2>Danh mục &amp; menu</h2><p class="hint">Danh sách danh mục sinh ra <strong>menu chính</strong> ngoài trang. Cấp 1 nằm trên thanh menu; hover đổ cấp 2, cấp 2 đổ cấp 3. Đặt “Thuộc danh mục” để phân cấp; “Trạng thái = Ẩn” sẽ không hiện trên menu.</p></div>
+          <button class="btn btn--primary" type="button" id="add-category">＋ Thêm mới</button>
+        </div>
+        <div id="categories-list" class="table-wrap"></div>
+      </section>
+
+      <!-- TAB: NỘI DUNG TRANG CHỦ (render bằng JS theo schema) -->
+      <section class="panel" data-panel="content">
+        <h2>Nội dung trang chủ</h2>
+        <p class="hint">Sửa tiêu đề, mô tả và nút của từng khối trên trang chủ. Bấm vào tên khối để mở/đóng.</p>
+        <div id="content-groups" class="content-groups"><!-- render bằng JS --></div>
+      </section>
+
+      <!-- TAB: TRANG GIỚI THIỆU (landing) -->
+      <section class="panel" data-panel="about">
+        <h2>Trang Giới thiệu</h2>
+        <p class="hint">Nội dung trang <strong>/gioi-thieu.html</strong>. Menu “Giới thiệu” sẽ cuộn tới từng phần tương ứng. Mỗi phần có mã neo cố định (#ve-stemlab, #tam-nhin-su-menh, #gia-tri-cot-loi, #ban-lanh-dao).</p>
+
+        <div class="fbox"><h4 class="fbox__h">1. Về STEM Lab <span class="hint">(#ve-stemlab)</span></h4>
+          <div class="field"><label>Nhãn nhỏ</label><input type="text" data-key="about.intro.eyebrow"></div>
+          <div class="field"><label>Tiêu đề</label><input type="text" data-key="about.intro.title"></div>
+          <div class="field"><label>Câu trích dẫn (quote)</label><textarea data-key="about.intro.quote" rows="2"></textarea></div>
+          <div class="field"><label>Nội dung giới thiệu</label><textarea class="rich-editor" data-key="about.intro.text"></textarea></div>
+          <label>Thư viện ảnh (bộ sưu tập)</label>
+          <div id="about-gallery" class="about-adm-gallery"></div>
+        </div>
+
+        <div class="fbox"><h4 class="fbox__h">2. Tầm nhìn – Sứ mệnh <span class="hint">(#tam-nhin-su-menh)</span></h4>
+          <div class="field"><label>Tiêu đề khối</label><input type="text" data-key="about.mission.title"></div>
+          <div id="about-mission" class="about-adm-list"></div>
+          <button class="btn btn--ghost btn--sm" type="button" data-about-add="mission">＋ Thêm mục sứ mệnh</button>
+        </div>
+
+        <div class="fbox"><h4 class="fbox__h">3. Giá trị cốt lõi <span class="hint">(#gia-tri-cot-loi)</span></h4>
+          <div class="field"><label>Tiêu đề khối</label><input type="text" data-key="about.values.title"></div>
+          <div class="field"><label>Mô tả ngắn</label><textarea data-key="about.values.subtitle" rows="2"></textarea></div>
+          <div id="about-values" class="about-adm-list"></div>
+          <button class="btn btn--ghost btn--sm" type="button" data-about-add="values">＋ Thêm giá trị</button>
+        </div>
+
+        <div class="fbox"><h4 class="fbox__h">4. Ban lãnh đạo <span class="hint">(#ban-lanh-dao)</span></h4>
+          <div class="field"><label>Tiêu đề khối</label><input type="text" data-key="about.leaders.title"></div>
+          <div id="about-leaders" class="about-adm-list"></div>
+          <button class="btn btn--ghost btn--sm" type="button" data-about-add="leaders">＋ Thêm thành viên</button>
+        </div>
+
+        <input type="file" id="about-file" accept="image/*" hidden>
+      </section>
+
+      <!-- TAB: CHÂN TRANG (FOOTER) -->
+      <section class="panel" data-panel="footer">
+        <h2>Chân trang (Footer)</h2>
+        <p class="hint">Sửa 3 cột liên kết, khối “Đăng ký nhận thông tin” và các link chính sách ở đáy trang. Logo, giới thiệu, mạng xã hội và thông tin liên hệ sửa ở tab <strong>Cấu hình</strong>.</p>
+        <div id="footer-editor"><!-- render bằng JS --></div>
+      </section>
+
+      <!-- TAB: TRANG GIỚI THIỆU -->
+      <section class="panel" data-panel="pages">
+        <div class="panel-head">
+          <div><h2>Trang giới thiệu</h2><p class="hint">Mỗi mục là một trang nội dung (Về STEM Lab, Tầm nhìn – Sứ mệnh, Giá trị cốt lõi…). Menu “Giới thiệu” tự cập nhật theo danh sách này.</p></div>
+          <button class="btn btn--primary" type="button" id="add-page">＋ Thêm mới</button>
+        </div>
+        <div id="pages-list" class="table-wrap"></div>
+      </section>
+
+      <!-- TAB: GIẢI PHÁP -->
+      <section class="panel" data-panel="solutions">
+        <div class="panel-head">
+          <div><h2>Giải pháp STEM Lab</h2><p class="hint">Quản lý các giải pháp (Phòng STEM Tiểu học/THCS/THPT, Smart Classroom…). Menu “Giải pháp STEM Lab” tự cập nhật.</p></div>
+          <button class="btn btn--primary" type="button" id="add-solution">＋ Thêm mới</button>
+        </div>
+        <div id="solutions-list" class="table-wrap"></div>
+      </section>
+
+      <!-- TAB: BÀI VIẾT (đa danh mục) -->
+      <section class="panel" data-panel="articles">
+        <div class="panel-head">
+          <div><h2>Bài viết — Chương trình đào tạo / Dự án / Tài nguyên</h2><p class="hint">Mỗi bài chọn <strong>Danh mục</strong> tương ứng. Nếu điền <strong>Link ngoài</strong>, mục menu sẽ trỏ sang link đó; để trống thì dùng trang bài viết hệ thống tự sinh.</p></div>
+          <button class="btn btn--primary" type="button" id="add-article">＋ Thêm mới</button>
+        </div>
+        <div id="articles-list" class="table-wrap"></div>
+      </section>
+
+      <!-- TAB: SẢN PHẨM -->
+      <section class="panel" data-panel="products">
+        <div class="panel-head">
+          <div><h2>Sản phẩm</h2><p class="hint">Thêm, sửa, xoá sản phẩm hiển thị ở trang chủ và trang “Sản phẩm”. Tối đa 60 mục.</p></div>
+          <button class="btn btn--primary" type="button" id="add-product">＋ Thêm mới</button>
+        </div>
+        <div id="products-list" class="table-wrap"></div>
+      </section>
+
+      <!-- TAB: TIN TỨC -->
+      <section class="panel" data-panel="posts">
+        <div class="panel-head">
+          <div><h2>Tin tức &amp; dự án</h2><p class="hint">Thêm, sửa, xoá bài viết hiển thị ở trang chủ và trang “Tin tức”. Tối đa 120 mục.</p></div>
+          <button class="btn btn--primary" type="button" id="add-post">＋ Thêm mới</button>
+        </div>
+        <div id="posts-list" class="table-wrap"></div>
+      </section>
+      <input type="file" id="item-file" accept="image/png,image/jpeg,image/webp,image/svg+xml" hidden>
+      <input type="file" id="gallery-file" accept="image/png,image/jpeg,image/webp,image/svg+xml" multiple hidden>
+
+      <!-- TAB: BẢNG MÀU -->
+      <section class="panel" data-panel="theme">
+        <h2>Bảng màu nhận diện</h2>
+        <p class="hint">Chọn màu lấy từ logo. Các sắc độ phụ (đậm/nhạt) được tạo tự động. Xem trước áp dụng ngay.</p>
+        <div class="color-grid" id="color-grid">
+          <!-- render bằng JS -->
+        </div>
+        <div class="theme-presets">
+          <span class="hint">Mẫu nhanh:</span>
+          <button class="preset" type="button" data-preset="stemlab" title="Theo logo STEM Lab">STEM Lab</button>
+          <button class="preset" type="button" data-preset="ocean" title="Xanh biển">Ocean</button>
+          <button class="preset" type="button" data-preset="forest" title="Xanh lá">Forest</button>
+          <button class="preset" type="button" data-preset="sunset" title="Cam tím">Sunset</button>
+        </div>
+        <div class="theme-demo" id="theme-demo">
+          <span class="badge">Nhãn</span>
+          <button class="btn btn--primary btn--sm" type="button">Nút chính</button>
+          <button class="btn btn--accent btn--sm" type="button">Nút nhấn</button>
+          <a class="link-more" href="#" onclick="return false">Liên kết</a>
+        </div>
+      </section>
+
+      <!-- TAB: HỘP THƯ LIÊN HỆ -->
+      <section class="panel" data-panel="inbox">
+        <h2>Hộp thư liên hệ</h2>
+        <p class="hint">Các yêu cầu gửi từ form Liên hệ được lưu tại đây (cần đã gắn KV). Dữ liệu cũng gửi tới email/webhook nếu bạn đã cấu hình.</p>
+        <div class="inbox-toolbar">
+          <button class="btn btn--ghost btn--sm" type="button" id="inbox-refresh">↻ Tải lại</button>
+          <button class="btn btn--ghost btn--sm" type="button" id="inbox-clear">Xoá tất cả</button>
+          <span class="hint" id="inbox-count"></span>
+        </div>
+        <div id="inbox-list" class="inbox-list"></div>
+
+        <!-- Đổi mật khẩu quản trị -->
+        <h2 style="margin-top:34px">Đổi mật khẩu quản trị</h2>
+        <p class="hint">Cần đã gắn KV để lưu mật khẩu mới. Sau khi đổi, dùng mật khẩu mới cho lần đăng nhập sau.</p>
+        <form id="pwd-form" class="grid grid--2" style="max-width:640px;margin-top:12px" autocomplete="off">
+          <div class="field"><label for="pwd-current">Mật khẩu hiện tại</label><input id="pwd-current" type="password" autocomplete="current-password"></div>
+          <div class="field"><label for="pwd-next">Mật khẩu mới</label><input id="pwd-next" type="password" autocomplete="new-password"></div>
+          <div class="field col-2" style="grid-column:1/-1">
+            <button class="btn btn--primary" type="submit" id="pwd-save">Cập nhật mật khẩu</button>
+            <span class="panel-save__status" id="pwd-status" style="margin-left:12px"></span>
+          </div>
+        </form>
+      </section>
+
+      <!-- TAB: ĐÁNH GIÁ SẢN PHẨM -->
+      <section class="panel" data-panel="reviews">
+        <h2>Đánh giá sản phẩm</h2>
+        <p class="hint">Đánh giá khách gửi từ trang chi tiết sản phẩm. Bạn có thể xoá các đánh giá rác/spam tại đây (cần đã gắn KV khi chạy trên Cloudflare).</p>
+        <div class="inbox-toolbar">
+          <button class="btn btn--ghost btn--sm" type="button" id="reviews-refresh">↻ Tải lại</button>
+          <button class="btn btn--ghost btn--sm" type="button" id="reviews-clear">Xoá tất cả</button>
+          <span class="hint" id="reviews-count"></span>
+        </div>
+        <div id="reviews-list" class="table-wrap"></div>
+      </section>
+
+    </form>
+  </div>
+</div>
+
+<!-- ============ MODAL THÊM/SỬA MỤC ============ -->
+<div class="modal" id="item-modal" hidden>
+  <div class="modal__backdrop" data-modal-close></div>
+  <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal__head">
+      <h3 id="modal-title">Chỉnh sửa</h3>
+      <button class="modal__x" type="button" data-modal-close aria-label="Đóng">✕</button>
+    </div>
+    <div class="modal__body" id="modal-body"></div>
+    <div class="modal__foot">
+      <button class="btn btn--ghost" type="button" data-modal-close>Huỷ</button>
+      <button class="btn btn--primary" type="button" id="modal-save">Lưu mục này</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/site.config.js"></script>
+<script src="admin.js" defer></script>
+</body>
+</html>

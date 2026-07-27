@@ -1,0 +1,10 @@
+node_modules/
+.wrangler/
+.dev.vars
+.DS_Store
+*.log
+tools/.dev-data.json
+tools/.dev-inbox.json
+tools/.dev-reviews.json
+tools/.dev-pass.json
+tools/.dev-backups/

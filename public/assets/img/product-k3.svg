@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-label="ORC K3">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0699d4"/><stop offset="1" stop-color="#023a53"/></linearGradient>
+    <linearGradient id="l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset="1" stop-color="#ffffff" stop-opacity=".55"/></linearGradient>
+  </defs>
+  <rect width="480" height="480" rx="28" fill="#f6fafc"/>
+  <circle cx="240" cy="228" r="150" fill="#0699d4" opacity=".12"/>
+  <ellipse cx="240" cy="404" rx="126" ry="18" fill="#0a2b3d" opacity=".12"/>
+  <rect x="132" y="212" width="216" height="150" rx="30" fill="url(#g)"/>
+  <rect x="160" y="240" width="160" height="66" rx="16" fill="#0a2b3d" opacity=".8"/>
+  <circle cx="205" cy="273" r="13" fill="#ffd21e"/><circle cx="275" cy="273" r="13" fill="#ffd21e"/>
+  <rect x="214" y="326" width="52" height="10" rx="5" fill="#fff" opacity=".7"/>
+  <rect x="188" y="132" width="104" height="80" rx="24" fill="url(#l)"/>
+  <circle cx="216" cy="170" r="10" fill="#023a53"/><circle cx="264" cy="170" r="10" fill="#023a53"/>
+  <path d="M214 194q26 16 52 0" stroke="#023a53" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M240 132v-26" stroke="#0699d4" stroke-width="7" stroke-linecap="round"/><circle cx="240" cy="98" r="12" fill="#ffd21e"/>
+  <rect x="94" y="234" width="38" height="92" rx="18" fill="#023a53"/>
+  <rect x="348" y="234" width="38" height="92" rx="18" fill="#023a53"/>
+  <circle cx="176" cy="376" r="34" fill="#1b3242"/><circle cx="176" cy="376" r="14" fill="#8fa5b3"/>
+  <circle cx="304" cy="376" r="34" fill="#1b3242"/><circle cx="304" cy="376" r="14" fill="#8fa5b3"/>
+  <text x="240" y="452" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#023a53">ORC K3</text>
+</svg>

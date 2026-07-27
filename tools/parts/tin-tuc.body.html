@@ -1,0 +1,77 @@
+<main id="main">
+
+  <section class="page-hero">
+    <div class="container">
+      <ol class="breadcrumb">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li>Tin tức &amp; Dự án</li>
+      </ol>
+      <h1>Triển khai STEM tại các địa phương</h1>
+      <p>Giải đấu Robotics, ngày hội STEM, chương trình tập huấn giáo viên và các dự án cộng đồng chúng tôi đồng hành trên khắp cả nước.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <article class="news-featured reveal">
+        <div>
+          <span class="badge badge--accent">Nổi bật</span>
+          <h2 style="margin:12px 0 10px;font-size:clamp(1.3rem,1rem+1.2vw,2rem)">
+            <a href="#post-1" style="color:inherit">Gần 110 đội thi tranh tài tại giải Robocon khu vực miền Trung 2026</a>
+          </h2>
+          <p class="news-card__date">18/05/2026 · Giải đấu</p>
+          <p>Giải đấu quy tụ các đội thi đến từ 12 tỉnh thành, chia làm ba bảng Tiểu học, THCS và THPT với tổng giải thưởng gần 100 triệu đồng. Ngoài các trận đấu, ban tổ chức còn bố trí khu trải nghiệm miễn phí cho học sinh và phụ huynh đến xem.</p>
+          <a class="btn btn--primary" href="#post-1">Đọc bài viết</a>
+        </div>
+        <img src="assets/img/news-1.svg" alt="Giải Robocon miền Trung 2026" width="800" height="500" loading="lazy">
+      </article>
+
+      <div class="toolbar">
+        <div class="chips" id="news-chips" role="group" aria-label="Lọc theo chuyên mục"></div>
+        <div class="search-box">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <label class="sr-only" for="news-search">Tìm bài viết</label>
+          <input id="news-search" type="search" placeholder="Tìm theo tiêu đề, địa phương...">
+        </div>
+      </div>
+
+      <p style="color:var(--c-muted);font-size:.92rem;margin-bottom:20px">
+        Hiển thị <strong data-result-count>0</strong> bài viết
+      </p>
+
+      <div class="grid grid--3" id="news-grid"></div>
+
+      <div class="empty-state" id="news-empty">
+        <h3>Chưa có bài viết phù hợp</h3>
+        <p>Thử từ khoá khác hoặc chọn lại chuyên mục.</p>
+      </div>
+
+      <nav class="pagination" aria-label="Phân trang">
+        <span class="is-active">1</span>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">Sau →</a>
+      </nav>
+
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Đăng ký</span>
+        <h2>Nhận thông tin giải đấu &amp; tập huấn sớm nhất</h2>
+        <p>Mỗi tháng một email: lịch giải đấu, tài liệu mới, giáo án STEM miễn phí. Không spam, huỷ đăng ký bất cứ lúc nào.</p>
+      </div>
+      <form class="newsletter-form reveal" data-ajax-form action="/api/contact" style="max-width:520px;margin-inline:auto" data-success-message="Cảm ơn bạn đã đăng ký nhận tin!">
+        <input type="hidden" name="type" value="newsletter">
+        <label class="sr-only" for="nl2-email">Email của bạn</label>
+        <input id="nl2-email" type="email" name="email" placeholder="Email của bạn" required>
+        <button class="btn btn--primary" type="submit">Đăng ký</button>
+        <p class="form-note" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+</main>

@@ -1,0 +1,983 @@
+{
+  "home": {
+    "support": {
+      "items": [
+        {
+          "title": "Phần mềm lập trình",
+          "desc": "Bắt đầu học và thực hành lập trình STEM dễ dàng với giao diện kéo thả, chuyển đổi sang Python chỉ bằng một cú nhấp.",
+          "linkText": "Tải phần mềm",
+          "link": "#",
+          "color": "yellow"
+        },
+        {
+          "title": "Cộng đồng sáng tạo STEAM",
+          "desc": "Cùng học hỏi và chia sẻ các bài thực hành thú vị với hơn 8.000 giáo viên, phụ huynh và học sinh trên cả nước.",
+          "linkText": "Tham gia cộng đồng",
+          "link": "#",
+          "color": "blue"
+        },
+        {
+          "title": "Giải pháp cho giảng dạy",
+          "desc": "Cung cấp đầy đủ giáo cụ STEM hỗ trợ hoạt động giảng dạy tại trường và trung tâm, kèm kế hoạch bài dạy theo từng khối lớp.",
+          "linkText": "Nhận tư vấn",
+          "link": "lien-he.html",
+          "color": "red"
+        }
+      ]
+    }
+  },
+  "stats": [
+    {
+      "value": 1200,
+      "suffix": "+",
+      "label": "Trường học đồng hành"
+    },
+    {
+      "value": 65,
+      "suffix": "",
+      "label": "Tỉnh thành triển khai"
+    },
+    {
+      "value": 25000,
+      "suffix": "+",
+      "label": "Học sinh trải nghiệm"
+    },
+    {
+      "value": 300,
+      "suffix": "+",
+      "label": "Giải đấu & ngày hội STEM"
+    }
+  ],
+  "categories": [
+    {
+      "id": "gioi-thieu",
+      "name": "Giới thiệu",
+      "parent": "",
+      "type": "custom",
+      "image": "",
+      "link": "/ve-stem-lab.html",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "san-pham",
+      "name": "Giải pháp Stemlab",
+      "parent": "",
+      "type": "product",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show",
+      "excerpt": "",
+      "content": ""
+    },
+    {
+      "id": "robotics",
+      "name": "Phòng STEM tiểu học",
+      "parent": "san-pham",
+      "type": "product",
+      "image": "assets/img/product-k3.svg",
+      "link": "",
+      "showOnHome": true,
+      "status": "show",
+      "keywords": "Phòng STEM tiểu học",
+      "metaDescription": "Phòng STEM tiểu học",
+      "seoTitle": "Phòng STEM tiểu học",
+      "excerpt": "",
+      "content": ""
+    },
+    {
+      "id": "stem-kit",
+      "name": "Phòng STEM THCS",
+      "parent": "san-pham",
+      "type": "product",
+      "image": "assets/img/product-stemkit.svg",
+      "link": "",
+      "showOnHome": true,
+      "status": "show",
+      "keywords": "Phòng STEM THCS",
+      "metaDescription": "Phòng STEM THCS",
+      "seoTitle": "Phòng STEM THCS",
+      "excerpt": "",
+      "content": ""
+    },
+    {
+      "id": "thi-nghiem",
+      "name": "Phòng STEM THPT",
+      "parent": "san-pham",
+      "type": "product",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show",
+      "keywords": "Phòng STEM THPT",
+      "metaDescription": "Phòng STEM THPT",
+      "seoTitle": "Phòng STEM THPT",
+      "excerpt": "",
+      "content": ""
+    },
+    {
+      "id": "giai-phap",
+      "name": "Smart STEM Classroom",
+      "parent": "san-pham",
+      "type": "product",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show",
+      "keywords": "Smart STEM Classroom",
+      "metaDescription": "Smart STEM Classroom",
+      "seoTitle": "Smart STEM Classroom",
+      "excerpt": "",
+      "content": ""
+    },
+    {
+      "id": "chuong-trinh-dao-tao",
+      "name": "Chương trình đào tạo",
+      "parent": "",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "quy-trinh-trien-khai",
+      "name": "Quy trình triển khai",
+      "parent": "san-pham",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "keywords": "Quy trình triển khai",
+      "metaDescription": "Quy trình triển khai",
+      "seoTitle": "Quy trình triển khai",
+      "excerpt": "",
+      "content": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "ve-stemlab",
+      "name": "Về StemLab",
+      "parent": "gioi-thieu",
+      "type": "custom",
+      "image": "",
+      "link": "",
+      "keywords": "Về StemLab",
+      "metaDescription": "Về StemLab",
+      "seoTitle": "Về StemLab",
+      "excerpt": "",
+      "content": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "tam-nhin-su-menh",
+      "name": "Tầm nhìn - Sứ mệnh",
+      "parent": "gioi-thieu",
+      "type": "custom",
+      "image": "",
+      "link": "",
+      "keywords": "Tầm nhìn - Sứ mệnh",
+      "metaDescription": "Tầm nhìn - Sứ mệnh",
+      "seoTitle": "Tầm nhìn - Sứ mệnh",
+      "excerpt": "",
+      "content": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "gia-tri-cot-loi",
+      "name": "Giá trị cốt lõi",
+      "parent": "gioi-thieu",
+      "type": "custom",
+      "image": "",
+      "link": "",
+      "keywords": "Giá trị cốt lõi",
+      "metaDescription": "Giá trị cốt lõi",
+      "seoTitle": "Giá trị cốt lõi",
+      "excerpt": "",
+      "content": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "du-an-hoat-dong",
+      "name": "Dự án - Hoạt động",
+      "parent": "",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "stem-ptcs",
+      "name": "STEM PTCS",
+      "parent": "chuong-trinh-dao-tao",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "stem-ptth",
+      "name": "STEM PTTH",
+      "parent": "chuong-trinh-dao-tao",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "robotics-2",
+      "name": "Robotics",
+      "parent": "chuong-trinh-dao-tao",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "ai-iot",
+      "name": "AI - IoT",
+      "parent": "chuong-trinh-dao-tao",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "coding",
+      "name": "Coding",
+      "parent": "chuong-trinh-dao-tao",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "3d-design",
+      "name": "3D Design",
+      "parent": "chuong-trinh-dao-tao",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "tai-nguyen",
+      "name": "Tài nguyên",
+      "parent": "",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "hoat-dong-lop-hoc",
+      "name": "Hoạt động lớp học",
+      "parent": "du-an-hoat-dong",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "du-an-hoc-sinh",
+      "name": "Dự án học sinh",
+      "parent": "du-an-hoat-dong",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "hinh-anh-stem-lab",
+      "name": "Hình ảnh STEM Lab",
+      "parent": "du-an-hoat-dong",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "tin-tuc",
+      "name": "Tin tức",
+      "parent": "",
+      "type": "news",
+      "image": "",
+      "link": "tin-tuc.html",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "giao-an-mau",
+      "name": "Giáo án mẫu",
+      "parent": "tai-nguyen",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "checklist-phong-stem",
+      "name": "Checklist phòng STEM",
+      "parent": "tai-nguyen",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "noi-quy-phong-lab",
+      "name": "Nội quy phòng Lab",
+      "parent": "tai-nguyen",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "quy-trinh-su-dung-phong-lab",
+      "name": "Quy trình sử dụng phòng Lab",
+      "parent": "tai-nguyen",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    },
+    {
+      "id": "poster-infographic",
+      "name": "Poster/Infographic",
+      "parent": "tai-nguyen",
+      "type": "news",
+      "image": "",
+      "link": "",
+      "showOnHome": false,
+      "status": "show"
+    }
+  ],
+  "products": [
+    {
+      "id": "orc-k3",
+      "name": "Robot ORC K3",
+      "category": "robotics",
+      "categoryLabel": "Robotics thi đấu",
+      "level": "THCS – THPT – Đại học",
+      "price": 4990000,
+      "oldPrice": 5590000,
+      "badge": "Nổi bật",
+      "image": "assets/img/product-k3.svg",
+      "excerpt": "<p>K&iacute;ch thước lớn v&agrave; mạnh mẽ, gi&uacute;p học sinh THCS, THPT hoặc cao hơn học tập, s&aacute;ng tạo v&agrave; thi đấu Robotics.</p>\n",
+      "url": "",
+      "content": "<p>K&iacute;ch thước lớn v&agrave; mạnh mẽ, gi&uacute;p học sinh THCS, THPT hoặc cao hơn học tập, s&aacute;ng tạo v&agrave; thi đấu Robotics.</p>\n",
+      "code": "ORC K3"
+    },
+    {
+      "id": "orc-k2",
+      "name": "Robot ORC K2",
+      "category": "robotics",
+      "categoryLabel": "Robotics thi đấu",
+      "level": "THCS trở lên",
+      "price": 3290000,
+      "oldPrice": 3690000,
+      "badge": "Nổi bật",
+      "image": "assets/img/product-k2.svg",
+      "excerpt": "<p>C&aacute;ch lắp r&aacute;p đơn giản hơn với c&aacute;c thanh kim loại chuẩn ho&aacute;, ph&ugrave; hợp cấp THCS trở l&ecirc;n.</p>\n",
+      "url": "",
+      "categories": [
+        "robotics",
+        "giai-phap"
+      ],
+      "content": ""
+    },
+    {
+      "id": "rover",
+      "name": "Robot Rover V2",
+      "category": "robotics",
+      "categoryLabel": "Robotics nhập môn",
+      "level": "Tiểu học – THCS",
+      "price": 1890000,
+      "oldPrice": null,
+      "badge": null,
+      "image": "assets/img/product-rover.svg",
+      "excerpt": "<p>Bộ kit robot lập tr&igrave;nh được, gi&uacute;p l&agrave;m quen thế giới Robotics v&agrave; lập tr&igrave;nh một c&aacute;ch th&uacute; vị, đơn giản.</p>\n",
+      "url": "",
+      "categories": [
+        "robotics",
+        "giai-phap"
+      ],
+      "content": ""
+    },
+    {
+      "id": "rio",
+      "name": "Robot tư duy Rio",
+      "category": "mam-non",
+      "categoryLabel": "Mầm non",
+      "level": "4 – 8 tuổi",
+      "price": 1490000,
+      "oldPrice": 1690000,
+      "badge": "Cho bé",
+      "image": "assets/img/product-rio.svg",
+      "excerpt": "Điều khiển bằng nút nhấn trực quan, không cần điện thoại hay laptop. Đa dạng bản đồ khám phá cho bé.",
+      "url": "chi-tiet-san-pham.html"
+    },
+    {
+      "id": "stem-kit",
+      "name": "STEM Starter Kit",
+      "category": "stem-kit",
+      "categoryLabel": "Kit giảng dạy",
+      "level": "Tiểu học",
+      "price": 2390000,
+      "oldPrice": null,
+      "badge": null,
+      "image": "assets/img/product-stemkit.svg",
+      "excerpt": "25+ dự án sáng tạo, giúp học sinh dễ dàng khám phá và học hỏi STEM qua trải nghiệm thực tế.",
+      "url": "chi-tiet-san-pham.html"
+    },
+    {
+      "id": "innolab",
+      "name": "InnoLab – Bộ cảm biến đo lường",
+      "category": "thi-nghiem",
+      "categoryLabel": "Thí nghiệm khoa học",
+      "level": "THCS – THPT",
+      "price": 3590000,
+      "oldPrice": 3990000,
+      "badge": null,
+      "image": "assets/img/product-innolab.svg",
+      "excerpt": "Công cụ đo cho thí nghiệm khoa học sáng tạo: nhiệt độ, ánh sáng, độ ẩm, pH, khoảng cách…",
+      "url": "chi-tiet-san-pham.html"
+    },
+    {
+      "id": "iot-uno",
+      "name": "Mạch lập trình IoT Uno",
+      "category": "iot",
+      "categoryLabel": "IoT & AI",
+      "level": "THCS – Đại học",
+      "price": 890000,
+      "oldPrice": null,
+      "badge": null,
+      "image": "assets/img/product-iot.svg",
+      "excerpt": "Mạch vi điều khiển Wi-Fi tích hợp, lập trình kéo thả hoặc Python, kết nối dashboard IoT chỉ trong vài phút.",
+      "url": "chi-tiet-san-pham.html"
+    },
+    {
+      "id": "ai-camera",
+      "name": "AI Camera Kit",
+      "category": "iot",
+      "categoryLabel": "IoT & AI",
+      "level": "THPT – Đại học",
+      "price": 2790000,
+      "oldPrice": 2990000,
+      "badge": "Mới",
+      "image": "assets/img/product-ai.svg",
+      "excerpt": "Nhận diện khuôn mặt, vật thể, biển báo… đưa AI vào lớp học một cách trực quan và dễ hiểu.",
+      "url": "chi-tiet-san-pham.html"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Gần 110 đội thi tranh tài tại giải Robocon khu vực miền Trung 2026",
+      "category": "giai-dau",
+      "categoryLabel": "Giải đấu",
+      "date": "2026-05-18",
+      "dateLabel": "18/05/2026",
+      "image": "assets/img/news-1.svg",
+      "excerpt": "Giải đấu quy tụ các đội thi đến từ 12 tỉnh thành, chia làm ba bảng Tiểu học, THCS và THPT với tổng giải thưởng gần 100 triệu đồng.",
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Robocon khu vực Đông Nam Bộ: không chỉ là một giải đấu Robotics",
+      "category": "giai-dau",
+      "categoryLabel": "Giải đấu",
+      "date": "2026-04-02",
+      "dateLabel": "02/04/2026",
+      "image": "assets/img/news-2.svg",
+      "excerpt": "Phía sau đường đua robot là hành trình các em học sinh học cách làm việc nhóm, kiên trì và chấp nhận thất bại để đi tiếp."
+    },
+    {
+      "id": 3,
+      "title": "Khi Robotics trở thành một phần của hoạt động dạy học chính khoá",
+      "category": "trien-khai",
+      "categoryLabel": "Triển khai",
+      "date": "2026-03-11",
+      "dateLabel": "11/03/2026",
+      "image": "assets/img/news-3.svg",
+      "excerpt": "Câu chuyện từ một trường THCS đưa nội dung Robotics vào tiết học công nghệ và hoạt động trải nghiệm hướng nghiệp."
+    },
+    {
+      "id": 4,
+      "title": "Trao tặng 120 bộ kit lập trình cho các trường vùng khó khăn",
+      "category": "cong-dong",
+      "categoryLabel": "Cộng đồng",
+      "date": "2026-02-24",
+      "dateLabel": "24/02/2026",
+      "image": "assets/img/news-4.svg",
+      "excerpt": "Chương trình nằm trong chuỗi hoạt động phổ cập kỹ năng số, hướng tới học sinh tại các địa bàn còn thiếu thiết bị dạy học."
+    },
+    {
+      "id": 5,
+      "title": "Ngày hội STEM Robotics & Smart Home cho 1.000 học sinh",
+      "category": "su-kien",
+      "categoryLabel": "Sự kiện",
+      "date": "2026-01-15",
+      "dateLabel": "15/01/2026",
+      "image": "assets/img/news-5.svg",
+      "excerpt": "Hơn 20 gian trải nghiệm với robot dò line, nhà thông minh, in 3D và lập trình AI dành cho học sinh phổ thông."
+    },
+    {
+      "id": 6,
+      "title": "Gần 200 đội thi toả sáng tại giải Robotics Online cuối năm",
+      "category": "giai-dau",
+      "categoryLabel": "Giải đấu",
+      "date": "2025-12-20",
+      "dateLabel": "20/12/2025",
+      "image": "assets/img/news-6.svg",
+      "excerpt": "Hình thức thi trực tuyến giúp các đội ở xa vẫn có thể tham gia, nộp video vòng loại và thi chung kết qua livestream."
+    },
+    {
+      "id": 7,
+      "title": "Tập huấn STEAM cho cán bộ quản lý, giáo viên đến từ 100 trường",
+      "category": "tap-huan",
+      "categoryLabel": "Tập huấn",
+      "date": "2025-11-08",
+      "dateLabel": "08/11/2025",
+      "image": "assets/img/news-7.svg",
+      "excerpt": "Ba ngày tập huấn tập trung vào thiết kế bài học STEM theo chủ đề và cách tổ chức câu lạc bộ trong nhà trường."
+    },
+    {
+      "id": 8,
+      "title": "Mở lớp Robotics miễn phí cho học sinh tại huyện ngoại thành",
+      "category": "cong-dong",
+      "categoryLabel": "Cộng đồng",
+      "date": "2025-10-02",
+      "dateLabel": "02/10/2025",
+      "image": "assets/img/news-8.svg",
+      "excerpt": "Lớp học kéo dài 12 buổi, kết thúc bằng một hackathon nhỏ để các em trình bày sản phẩm trước phụ huynh và thầy cô."
+    },
+    {
+      "id": 9,
+      "title": "Hợp tác xây dựng phòng LAB STEM cùng trường đại học kỹ thuật",
+      "category": "trien-khai",
+      "categoryLabel": "Triển khai",
+      "date": "2025-09-12",
+      "dateLabel": "12/09/2025",
+      "image": "assets/img/news-9.svg",
+      "excerpt": "Phòng LAB được trang bị đồng bộ thiết bị IoT, robot và bàn thí nghiệm, phục vụ đào tạo sinh viên sư phạm kỹ thuật."
+    }
+  ],
+  "pages": [
+    {
+      "slug": "ve-stem-lab",
+      "title": "Về STEM Lab",
+      "subtitle": "Đơn vị cung cấp giải pháp giáo dục STEM toàn diện",
+      "image": "assets/img/illus-classroom.svg",
+      "content": "<p>STEM Lab là đơn vị chuyên cung cấp giải pháp giáo dục STEM toàn diện cho nhà trường: thiết bị, giáo trình, tập huấn giáo viên và sân chơi công nghệ cho học sinh.</p><p>Chúng tôi đồng hành cùng hơn 1.200 trường học trên 65 tỉnh thành, mang trải nghiệm học tập qua thực hành đến cho hàng chục nghìn học sinh.</p>"
+    },
+    {
+      "slug": "tam-nhin-su-menh",
+      "title": "Tầm nhìn – Sứ mệnh",
+      "subtitle": "Đưa giáo dục STEM đến gần hơn với mọi lớp học",
+      "image": "assets/img/illus-app.svg",
+      "content": "<h2>Tầm nhìn</h2><p>Trở thành đối tác giáo dục STEM tin cậy hàng đầu, giúp mọi học sinh Việt Nam được tiếp cận công nghệ từ sớm.</p><h2>Sứ mệnh</h2><p>Làm cho việc dạy và học STEM trở nên khả thi với bất kỳ giáo viên và ngôi trường nào, kể cả nơi còn thiếu điều kiện.</p>"
+    },
+    {
+      "slug": "gia-tri-cot-loi",
+      "title": "Giá trị cốt lõi",
+      "subtitle": "Bốn nguyên tắc chúng tôi không đánh đổi",
+      "image": "assets/img/illus-club.svg",
+      "content": "<ul><li><strong>Dễ bắt đầu</strong> — sản phẩm dùng được ngay trong tiết học đầu tiên.</li><li><strong>Bền &amp; an toàn</strong> — thiết bị chịu được hàng trăm lượt sử dụng mỗi năm.</li><li><strong>Đồng hành lâu dài</strong> — hỗ trợ giáo viên là phần việc chính của chúng tôi.</li><li><strong>Không bỏ ai lại phía sau</strong> — ưu tiên chương trình miễn phí ở địa bàn khó khăn.</li></ul>"
+    }
+  ],
+  "solutions": [
+    {
+      "id": "phong-stem-tieu-hoc",
+      "name": "Phòng STEM Tiểu học",
+      "image": "assets/img/product-stemkit.svg",
+      "excerpt": "Trọn gói thiết bị & giáo trình STEM cho bậc Tiểu học, thiết kế theo chương trình GDPT 2018.",
+      "content": "<p>Giải pháp phòng STEM cho Tiểu học bao gồm bộ kit thực hành, giáo trình 35 tiết, bàn ghế module và tập huấn giáo viên.</p><h2>Bao gồm</h2><ul><li>STEM Kit cho 20–40 học sinh</li><li>Giáo trình &amp; phiếu học tập</li><li>Tập huấn 2 ngày</li></ul>"
+    },
+    {
+      "id": "phong-stem-thcs",
+      "name": "Phòng STEM THCS",
+      "image": "assets/img/product-k2.svg",
+      "excerpt": "Robotics, IoT và thí nghiệm khoa học gắn với môn Khoa học tự nhiên và Công nghệ.",
+      "content": "<p>Phòng STEM THCS tập trung vào Robotics ORC K2, cảm biến InnoLab và mạch IoT, phù hợp hoạt động trải nghiệm và câu lạc bộ.</p>"
+    },
+    {
+      "id": "phong-stem-thpt",
+      "name": "Phòng STEM THPT",
+      "image": "assets/img/product-k3.svg",
+      "excerpt": "Robotics nâng cao, AI và IoT phục vụ nghiên cứu khoa học kỹ thuật và khởi nghiệp.",
+      "content": "<p>Phòng STEM THPT trang bị Robot ORC K3, AI Camera và nền tảng dashboard IoT cho các dự án nghiên cứu.</p>"
+    },
+    {
+      "id": "smart-stem-classroom",
+      "name": "Smart STEM Classroom",
+      "image": "assets/img/illus-app.svg",
+      "excerpt": "Lớp học STEM thông minh tích hợp thiết bị, phần mềm quản lý và màn hình tương tác.",
+      "content": "<p>Mô hình lớp học STEM thông minh kết nối thiết bị, phần mềm lập trình và hệ thống quản lý lớp học tập trung.</p>"
+    },
+    {
+      "id": "quy-trinh-trien-khai",
+      "name": "Quy trình triển khai",
+      "image": "assets/img/illus-classroom.svg",
+      "excerpt": "Từ khảo sát, thiết kế, lắp đặt đến tập huấn và bàn giao — quy trình 5 bước rõ ràng.",
+      "content": "<h2>5 bước triển khai</h2><ol><li>Khảo sát nhu cầu &amp; cơ sở vật chất</li><li>Thiết kế phòng &amp; đề xuất thiết bị</li><li>Lắp đặt &amp; cấu hình</li><li>Tập huấn giáo viên</li><li>Bàn giao &amp; hỗ trợ vận hành</li></ol>"
+    }
+  ],
+  "articles": [
+    {
+      "id": "stem-ptcs",
+      "group": "chuong-trinh-dao-tao",
+      "title": "STEM PTCS",
+      "image": "assets/img/news-3.svg",
+      "excerpt": "Chương trình STEM cho bậc Trung học cơ sở.",
+      "externalLink": "",
+      "content": "<p>Nội dung chương trình STEM PTCS…</p>"
+    },
+    {
+      "id": "stem-ptth",
+      "group": "chuong-trinh-dao-tao",
+      "title": "STEM PTTH",
+      "image": "assets/img/news-2.svg",
+      "excerpt": "Chương trình STEM cho bậc Trung học phổ thông.",
+      "externalLink": "",
+      "content": "<p>Nội dung chương trình STEM PTTH…</p>"
+    },
+    {
+      "id": "robotics",
+      "group": "chuong-trinh-dao-tao",
+      "title": "Robotics",
+      "image": "assets/img/product-k3.svg",
+      "excerpt": "Lộ trình học Robotics từ cơ bản đến thi đấu.",
+      "externalLink": "",
+      "content": "<p>Lộ trình Robotics…</p>"
+    },
+    {
+      "id": "ai-iot",
+      "group": "chuong-trinh-dao-tao",
+      "title": "AI - IoT",
+      "image": "assets/img/product-ai.svg",
+      "excerpt": "Trí tuệ nhân tạo và Internet vạn vật cho học sinh phổ thông.",
+      "externalLink": "",
+      "content": "<p>Chương trình AI - IoT…</p>"
+    },
+    {
+      "id": "coding",
+      "group": "chuong-trinh-dao-tao",
+      "title": "Coding",
+      "image": "assets/img/illus-app.svg",
+      "excerpt": "Lập trình kéo thả và Python cho mọi lứa tuổi.",
+      "externalLink": "",
+      "content": "<p>Chương trình Coding…</p>"
+    },
+    {
+      "id": "3d-design",
+      "group": "chuong-trinh-dao-tao",
+      "title": "3D Design",
+      "image": "assets/img/product-innolab.svg",
+      "excerpt": "Thiết kế và in 3D trong giáo dục STEM.",
+      "externalLink": "",
+      "content": "<p>Chương trình 3D Design…</p>"
+    },
+    {
+      "id": "hoat-dong-lop-hoc",
+      "group": "du-an-hoat-dong",
+      "title": "Hoạt động lớp học",
+      "image": "assets/img/news-5.svg",
+      "excerpt": "Những tiết học STEM sinh động tại các trường.",
+      "externalLink": "",
+      "content": "<p>Hoạt động lớp học…</p>"
+    },
+    {
+      "id": "du-an-hoc-sinh",
+      "group": "du-an-hoat-dong",
+      "title": "Dự án học sinh",
+      "image": "assets/img/news-7.svg",
+      "excerpt": "Sản phẩm sáng tạo do chính học sinh thực hiện.",
+      "externalLink": "",
+      "content": "<p>Dự án học sinh…</p>"
+    },
+    {
+      "id": "hinh-anh-stem-lab",
+      "group": "du-an-hoat-dong",
+      "title": "Hình ảnh STEM Lab",
+      "image": "assets/img/news-1.svg",
+      "excerpt": "Thư viện hình ảnh hoạt động của STEM Lab.",
+      "externalLink": "",
+      "content": "<p>Hình ảnh STEM Lab…</p>"
+    },
+    {
+      "id": "giao-an-mau",
+      "group": "tai-nguyen",
+      "title": "Giáo án mẫu",
+      "image": "assets/img/illus-classroom.svg",
+      "excerpt": "Bộ giáo án STEM soạn sẵn theo chủ đề.",
+      "externalLink": "",
+      "content": "<p>Giáo án mẫu…</p>"
+    },
+    {
+      "id": "checklist-phong-stem",
+      "group": "tai-nguyen",
+      "title": "Checklist phòng STEM",
+      "image": "assets/img/product-innolab.svg",
+      "excerpt": "Danh mục kiểm tra khi thiết lập phòng STEM.",
+      "externalLink": "",
+      "content": "<p>Checklist phòng STEM…</p>"
+    },
+    {
+      "id": "noi-quy-phong-lab",
+      "group": "tai-nguyen",
+      "title": "Nội quy phòng Lab",
+      "image": "assets/img/news-9.svg",
+      "excerpt": "Mẫu nội quy sử dụng phòng Lab an toàn.",
+      "externalLink": "",
+      "content": "<p>Nội quy phòng Lab…</p>"
+    },
+    {
+      "id": "quy-trinh-su-dung-phong-lab",
+      "group": "tai-nguyen",
+      "title": "Quy trình sử dụng phòng Lab",
+      "image": "assets/img/illus-app.svg",
+      "excerpt": "Hướng dẫn quy trình vận hành phòng Lab.",
+      "externalLink": "",
+      "content": "<p>Quy trình sử dụng phòng Lab…</p>"
+    },
+    {
+      "id": "poster-infographic",
+      "group": "tai-nguyen",
+      "title": "Poster / Infographic",
+      "image": "assets/img/news-4.svg",
+      "excerpt": "Kho poster và infographic STEM tải miễn phí.",
+      "externalLink": "",
+      "content": "<p>Poster / Infographic…</p>"
+    }
+  ],
+  "hero": {
+    "slides": []
+  },
+  "footer": {
+    "connectTitle": "Kết nối với chúng tôi",
+    "contactTitle": "CÔNG TY TNHH ĐẦU TƯ & PHÁT TRIỂN GIÁO DỤC TSV VIỆT NAM",
+    "cols": [
+      {
+        "title": "Sản phẩm",
+        "links": [
+          {
+            "label": "Robot ORC K3",
+            "url": "/robot-orc-k3.html"
+          },
+          {
+            "label": "Robot ORC K2",
+            "url": "/robot-orc-k2.html"
+          },
+          {
+            "label": "Robot Rover",
+            "url": "/robot-rover-v2.html"
+          },
+          {
+            "label": "Robot Rio",
+            "url": "/robot-tu-duy-rio.html"
+          },
+          {
+            "label": "InnoLab",
+            "url": "/innolab-bo-cam-bien-do-luong.html"
+          },
+          {
+            "label": "STEM Kit",
+            "url": "san-pham.html"
+          }
+        ]
+      },
+      {
+        "title": "Tài nguyên",
+        "links": [
+          {
+            "label": "Phần mềm lập trình",
+            "url": "#"
+          },
+          {
+            "label": "Cài đặt driver",
+            "url": "#"
+          },
+          {
+            "label": "Cập nhật firmware",
+            "url": "#"
+          },
+          {
+            "label": "Tài liệu hướng dẫn",
+            "url": "#"
+          },
+          {
+            "label": "Giáo trình STEM",
+            "url": "#"
+          },
+          {
+            "label": "Khoá học online",
+            "url": "#"
+          }
+        ]
+      },
+      {
+        "title": "Thông tin",
+        "links": [
+          {
+            "label": "Về chúng tôi",
+            "url": "ve-chung-toi.html"
+          },
+          {
+            "label": "Tin tức",
+            "url": "tin-tuc.html"
+          },
+          {
+            "label": "Giải đấu Robotics",
+            "url": "#"
+          },
+          {
+            "label": "Khuyến mãi",
+            "url": "#"
+          },
+          {
+            "label": "Thanh toán – Vận chuyển",
+            "url": "#"
+          },
+          {
+            "label": "Bảo hành – Đổi trả",
+            "url": "#"
+          }
+        ]
+      }
+    ],
+    "newsletter": {
+      "title": "Đăng ký nhận thông tin",
+      "placeholder": "Email của bạn",
+      "button": "Đăng ký"
+    },
+    "policies": [
+      {
+        "label": "Chính sách bảo mật",
+        "url": "#"
+      },
+      {
+        "label": "Điều khoản sử dụng",
+        "url": "#"
+      },
+      {
+        "label": "Chính sách bảo hành",
+        "url": "#"
+      },
+      {
+        "label": "Liên hệ",
+        "url": "lien-he.html"
+      }
+    ]
+  },
+  "company": {
+    "address": "Số 112B1, ngõ 9 đường Lương Ngọc Quyến, Phường Phương Liệt, Hà Nội"
+  },
+  "contact": {
+    "phone": "0869 201 682"
+  },
+  "about": {
+    "intro": {
+      "eyebrow": "Về STEM Lab",
+      "title": "Về STEM Lab",
+      "quote": "Khơi nguồn sáng tạo thế hệ trẻ — Xây dựng tương lai tốt đẹp hơn trong kỷ nguyên số.",
+      "text": "<p>STEM Lab mong muốn g&oacute;p phần khơi dậy niềm đam m&ecirc; s&aacute;ng tạo của thế hệ trẻ, gi&uacute;p c&aacute;c em c&oacute; sự chuẩn bị tốt nhất cho tương lai trong kỷ nguy&ecirc;n số.</p>\n\n<p>Ch&uacute;ng t&ocirc;i đang từng bước hiện thực ho&aacute; điều đ&oacute; bằng c&aacute;ch ph&aacute;t triển sản phẩm phần cứng v&agrave; phần mềm học tập th&uacute; vị, bi&ecirc;n soạn gi&aacute;o tr&igrave;nh mở, tập huấn gi&aacute;o vi&ecirc;n v&agrave; x&acirc;y dựng cộng đồng gi&aacute;o dục STEM.</p>",
+      "image": "assets/img/illus-classroom.svg",
+      "gallery": [
+        "assets/img/news-1.svg",
+        "assets/img/news-2.svg",
+        "assets/img/news-3.svg",
+        "assets/img/news-4.svg",
+        "assets/img/news-5.svg",
+        "assets/img/news-6.svg"
+      ]
+    },
+    "mission": {
+      "title": "Sứ mệnh của chúng tôi",
+      "items": [
+        {
+          "image": "assets/img/illus-app.svg",
+          "title": "Truyền cảm hứng",
+          "desc": "Thúc đẩy và truyền cảm hứng cho tất cả mọi người tham gia vào thế giới công nghệ đầy thú vị, bất kể bạn là ai."
+        },
+        {
+          "image": "assets/img/illus-classroom.svg",
+          "title": "Làm việc học trở nên đơn giản hơn",
+          "desc": "Tạo ra các công cụ giúp việc học trở nên trực quan, dễ dàng và thú vị để phát triển tư duy sáng tạo."
+        },
+        {
+          "image": "assets/img/illus-club.svg",
+          "title": "Hỗ trợ giáo viên",
+          "desc": "Hợp tác và hết sức chăm lo cho giáo viên để tạo ra các chương trình và hoạt động giảng dạy hiệu quả, sinh động."
+        },
+        {
+          "image": "assets/img/illus-app.svg",
+          "title": "Hỗ trợ cộng đồng",
+          "desc": "Xây dựng và hỗ trợ cộng đồng, khuyến khích chia sẻ và hợp tác để xoá bỏ mọi rào cản về kiến thức."
+        }
+      ]
+    },
+    "values": {
+      "title": "Giá trị cốt lõi",
+      "subtitle": "Đây là các giá trị cốt lõi và là kim chỉ nam cho mọi hoạt động mà chúng tôi thực hiện.",
+      "items": [
+        {
+          "image": "assets/img/avatar-1.svg",
+          "title": "Tin tưởng"
+        },
+        {
+          "image": "assets/img/avatar-2.svg",
+          "title": "Thấu hiểu"
+        },
+        {
+          "image": "assets/img/avatar-3.svg",
+          "title": "Đơn giản"
+        },
+        {
+          "image": "assets/img/avatar-4.svg",
+          "title": "Đam mê"
+        }
+      ]
+    },
+    "leaders": {
+      "title": "Ban lãnh đạo",
+      "items": [
+        {
+          "photo": "assets/img/avatar-1.svg",
+          "name": "Ông Nguyễn Văn A",
+          "role": "Giám đốc điều hành"
+        },
+        {
+          "photo": "assets/img/avatar-2.svg",
+          "name": "Ông Nguyễn Văn B",
+          "role": "Giám đốc chương trình và đào tạo"
+        },
+        {
+          "photo": "assets/img/avatar-3.svg",
+          "name": "Ông Nguyễn Văn C",
+          "role": "Giám đốc Cuộc thi ORC Toàn Quốc"
+        }
+      ]
+    }
+  }
+}

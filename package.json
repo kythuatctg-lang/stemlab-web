@@ -1,0 +1,16 @@
+{
+  "name": "stemlab-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website giáo dục STEM — HTML/CSS/JS thuần, deploy trên Cloudflare Pages",
+  "scripts": {
+    "dev": "wrangler pages dev public",
+    "build": "python3 tools/build_pages.py",
+    "deploy": "wrangler pages deploy",
+    "deploy:preview": "wrangler pages deploy --branch preview",
+    "tail": "wrangler pages deployment tail"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

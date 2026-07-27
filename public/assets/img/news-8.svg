@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="CỘNG ĐỒNG">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2596b"/><stop offset="1" stop-color="#b62233"/></linearGradient></defs>
+  <rect width="800" height="500" fill="url(#g)"/><circle cx="522" cy="109" r="54" fill="#fff" opacity="0.15"/><circle cx="72" cy="373" r="62" fill="#fff" opacity="0.134"/><circle cx="469" cy="498" r="36" fill="#fff" opacity="0.062"/><circle cx="460" cy="366" r="46" fill="#fff" opacity="0.111"/><circle cx="387" cy="371" r="34" fill="#fff" opacity="0.135"/><circle cx="287" cy="399" r="76" fill="#fff" opacity="0.058"/><circle cx="122" cy="267" r="73" fill="#fff" opacity="0.118"/><circle cx="536" cy="305" r="79" fill="#fff" opacity="0.15"/><circle cx="378" cy="477" r="21" fill="#fff" opacity="0.109"/><circle cx="322" cy="202" r="71" fill="#fff" opacity="0.158"/><circle cx="702" cy="188" r="64" fill="#fff" opacity="0.058"/><circle cx="84" cy="495" r="18" fill="#fff" opacity="0.051"/><circle cx="486" cy="212" r="54" fill="#fff" opacity="0.09"/><circle cx="627" cy="104" r="16" fill="#fff" opacity="0.123"/>
+  <g opacity=".92">
+    <rect x="300" y="196" width="200" height="118" rx="26" fill="#ffffff" opacity=".92"/>
+    <circle cx="356" cy="246" r="16" fill="#b62233"/><circle cx="444" cy="246" r="16" fill="#b62233"/>
+    <path d="M352 288q48 26 96 0" stroke="#b62233" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <path d="M400 196v-30" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/><circle cx="400" cy="156" r="14" fill="#ffd21e"/>
+  </g>
+  <text x="400" y="404" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="30" font-weight="700" fill="#ffffff" opacity=".9">CỘNG ĐỒNG</text>
+</svg>

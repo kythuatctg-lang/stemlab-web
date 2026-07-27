@@ -1,0 +1,12 @@
+# Sao chép thành .dev.vars để chạy thử bằng `npm run dev` (KHÔNG commit file .dev.vars)
+
+# --- Trang quản trị /admin ---
+ADMIN_PASSWORD="doi-mat-khau-nay"
+# ADMIN_SESSION_SECRET="chuoi-ngau-nhien-dai-tuy-y"
+
+# --- Form liên hệ (tuỳ chọn) ---
+# CONTACT_WEBHOOK_URL="https://hooks.zapier.com/..."
+# RESEND_API_KEY="re_xxx"
+# MAIL_FROM="Website <noreply@stemlab.vn>"
+# MAIL_TO="contact@stemlab.vn"
+# TURNSTILE_SECRET="0x..."

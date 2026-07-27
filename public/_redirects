@@ -1,0 +1,10 @@
+# Cloudflare Pages đã tự phục vụ URL sạch: /san-pham  ->  san-pham.html
+# => KHÔNG tạo luật "/san-pham  /san-pham.html  301" ở đây, sẽ gây vòng lặp chuyển hướng
+#    vì Pages tự 301 ngược từ /san-pham.html sang /san-pham.
+
+# Đường dẫn chi tiết sản phẩm dạng /san-pham/robot-orc-k3 -> dùng chung một trang chi tiết
+/san-pham/:slug   /chi-tiet-san-pham.html   200
+
+# Ví dụ giữ link cũ khi chuyển đổi hệ thống (bỏ dấu # để dùng):
+# /product/*        /san-pham   301
+# /gioi-thieu       /ve-chung-toi   301

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="TRIỂN KHAI">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3d6fd6"/><stop offset="1" stop-color="#1f3f8f"/></linearGradient></defs>
+  <rect width="800" height="500" fill="url(#g)"/><circle cx="1" cy="491" r="84" fill="#fff" opacity="0.117"/><circle cx="672" cy="155" r="86" fill="#fff" opacity="0.051"/><circle cx="350" cy="388" r="51" fill="#fff" opacity="0.088"/><circle cx="771" cy="76" r="50" fill="#fff" opacity="0.142"/><circle cx="577" cy="152" r="78" fill="#fff" opacity="0.065"/><circle cx="520" cy="6" r="83" fill="#fff" opacity="0.07"/><circle cx="325" cy="273" r="62" fill="#fff" opacity="0.057"/><circle cx="111" cy="279" r="48" fill="#fff" opacity="0.158"/><circle cx="517" cy="12" r="16" fill="#fff" opacity="0.112"/><circle cx="304" cy="397" r="84" fill="#fff" opacity="0.055"/><circle cx="592" cy="262" r="24" fill="#fff" opacity="0.154"/><circle cx="83" cy="302" r="70" fill="#fff" opacity="0.131"/><circle cx="414" cy="355" r="65" fill="#fff" opacity="0.122"/><circle cx="8" cy="145" r="60" fill="#fff" opacity="0.107"/>
+  <g opacity=".92">
+    <rect x="300" y="196" width="200" height="118" rx="26" fill="#ffffff" opacity=".92"/>
+    <circle cx="356" cy="246" r="16" fill="#1f3f8f"/><circle cx="444" cy="246" r="16" fill="#1f3f8f"/>
+    <path d="M352 288q48 26 96 0" stroke="#1f3f8f" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <path d="M400 196v-30" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/><circle cx="400" cy="156" r="14" fill="#ffd21e"/>
+  </g>
+  <text x="400" y="404" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="30" font-weight="700" fill="#ffffff" opacity=".9">TRIỂN KHAI</text>
+</svg>

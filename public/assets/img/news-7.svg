@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-label="TẬP HUẤN">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e95095"/><stop offset="1" stop-color="#b32a67"/></linearGradient></defs>
+  <rect width="800" height="500" fill="url(#g)"/><circle cx="605" cy="178" r="90" fill="#fff" opacity="0.137"/><circle cx="2" cy="159" r="83" fill="#fff" opacity="0.135"/><circle cx="342" cy="149" r="36" fill="#fff" opacity="0.143"/><circle cx="169" cy="384" r="34" fill="#fff" opacity="0.061"/><circle cx="405" cy="179" r="37" fill="#fff" opacity="0.143"/><circle cx="630" cy="197" r="74" fill="#fff" opacity="0.105"/><circle cx="692" cy="116" r="39" fill="#fff" opacity="0.117"/><circle cx="538" cy="469" r="48" fill="#fff" opacity="0.057"/><circle cx="335" cy="422" r="30" fill="#fff" opacity="0.089"/><circle cx="743" cy="391" r="39" fill="#fff" opacity="0.157"/><circle cx="753" cy="477" r="66" fill="#fff" opacity="0.155"/><circle cx="516" cy="290" r="78" fill="#fff" opacity="0.141"/><circle cx="527" cy="193" r="52" fill="#fff" opacity="0.156"/><circle cx="535" cy="357" r="31" fill="#fff" opacity="0.112"/>
+  <g opacity=".92">
+    <rect x="300" y="196" width="200" height="118" rx="26" fill="#ffffff" opacity=".92"/>
+    <circle cx="356" cy="246" r="16" fill="#b32a67"/><circle cx="444" cy="246" r="16" fill="#b32a67"/>
+    <path d="M352 288q48 26 96 0" stroke="#b32a67" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <path d="M400 196v-30" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/><circle cx="400" cy="156" r="14" fill="#ffd21e"/>
+  </g>
+  <text x="400" y="404" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="30" font-weight="700" fill="#ffffff" opacity=".9">TẬP HUẤN</text>
+</svg>
