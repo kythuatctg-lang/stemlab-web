@@ -1694,7 +1694,6 @@
     refreshCatalog();
     renderRoute();
     renderAbout();
-    revealHero();
   }
 
   function revealHero() {
@@ -1703,22 +1702,26 @@
   }
 
   function loadSettings() {
-    // (2) áp dụng bản đã cache trước để tránh nháy giao diện
+    // (2) áp bản cache để dựng sớn (giữ hero ẩn -> không vẽ chữ trung gian)
     try {
       var cached = JSON.parse(localStorage.getItem(SETTINGS_CACHE_KEY) || "null");
       if (cached) applySettings(cached);
     } catch (e) { /* bỏ qua */ }
 
-    // (3) lấy bản chính thức từ server
+    // (3) lấy bản chính thức từ server — CHỈ hiện hero sau khi có bản này
+    // -> tránh cảnh vẽ banner chữ mặc định/cache trước rồi mới nhảy sang banner ảnh
     fetch("/api/settings", { headers: { Accept: "application/json" } })
       .then(function (res) { return res.ok ? res.json() : null; })
       .then(function (res) {
-        if (!res || !res.settings) return;
-        applySettings(res.settings);
-        try { localStorage.setItem(SETTINGS_CACHE_KEY, JSON.stringify(res.settings)); } catch (e) {}
+        if (res && res.settings) {
+          applySettings(res.settings);
+          try { localStorage.setItem(SETTINGS_CACHE_KEY, JSON.stringify(res.settings)); } catch (e) {}
+        }
+        revealHero();
       })
       .catch(function () {
-        /* Chạy trên server tĩnh (không có Pages Function) — dùng bản localStorage. */
+        /* Host tĩnh (không có Pages Function) — vẫn hiện hero với bản cache/mặc định */
+        revealHero();
       });
   }
 
@@ -1732,8 +1735,8 @@
     initActiveNav();
     renderRoute();
     renderAbout();
-    // Dự phòng: nếu không nạp được cấu hình (host tĩnh / lỗi mạng) vẫn hiện hero sau 1.4s
-    setTimeout(revealHero, 1400);
+    // Dự phòng cuối: nếu fetch treo quá lâu vẫn hiện hero sau 3.5s
+    setTimeout(revealHero, 3500);
     // Hero + số liệu + màu thẻ hỗ trợ được dựng trong applyBranding(); không gọi riêng.
     initBackToTop();
     initTabs();
