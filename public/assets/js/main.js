@@ -1694,6 +1694,12 @@
     refreshCatalog();
     renderRoute();
     renderAbout();
+    revealHero();
+  }
+
+  function revealHero() {
+    var h = $(".hero--pending");
+    if (h) h.classList.remove("hero--pending");
   }
 
   function loadSettings() {
@@ -1726,6 +1732,8 @@
     initActiveNav();
     renderRoute();
     renderAbout();
+    // Dự phòng: nếu không nạp được cấu hình (host tĩnh / lỗi mạng) vẫn hiện hero sau 1.4s
+    setTimeout(revealHero, 1400);
     // Hero + số liệu + màu thẻ hỗ trợ được dựng trong applyBranding(); không gọi riêng.
     initBackToTop();
     initTabs();

@@ -479,6 +479,9 @@ input, textarea, select { font: inherit; }
 
 /* ---------- 7. Hero carousel ---------- */
 .hero { position: relative; background: var(--c-primary-900); overflow: hidden; }
+/* Ẩn nội dung hero tới khi nạp xong cấu hình -> tránh nháy banner chữ trước banner ảnh */
+.hero__track { transition: opacity .35s ease; }
+.hero--pending .hero__track { opacity: 0; }
 
 .hero__track { position: relative; }
 .hero__slide {
