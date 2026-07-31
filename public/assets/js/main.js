@@ -176,6 +176,50 @@
   }
 
   // Favicon, ảnh chia sẻ (OG), tiêu đề & mô tả SEO cho trang chủ
+  // Tên miền chính (canonical) — lấy từ cấu hình để gộp SEO về 1 domain, bất kể host phục vụ
+  function siteBase() {
+    var d = get(window.SITE, "brand.domain");
+    return d ? "https://" + String(d).replace(/^https?:\/\//i, "").replace(/\/+$/, "") : location.origin;
+  }
+  // Chuyển đường dẫn tương đối -> URL tuyệt đối (theo tên miền chính)
+  function absUrl(u) {
+    if (!u) return "";
+    if (/^(https?:)?\/\//i.test(u) || /^data:/i.test(u)) return u;
+    return siteBase() + "/" + String(u).replace(/^\.?\//, "");
+  }
+  // Đặt/tạo thẻ canonical
+  function setCanonical(url) {
+    var link = document.querySelector('link[rel="canonical"]');
+    if (!link) { link = document.createElement("link"); link.rel = "canonical"; document.head.appendChild(link); }
+    link.setAttribute("href", url);
+  }
+  // URL sạch của trang hiện tại (theo tên miền chính; bỏ query/hash, bỏ đuôi index.html)
+  function currentUrl() {
+    return siteBase() + location.pathname.replace(/\/index\.html$/, "/");
+  }
+  // Đặt đầy đủ bộ thẻ OG/Twitter cho 1 trang
+  function setSeoTags(o) {
+    var brand = get(window.SITE, "brand.name") || "STEM Lab";
+    var url = o.url || currentUrl();
+    setCanonical(url);
+    var P = function (prop, val) { if (val != null && val !== "") metaEnsure(prop, "property").setAttribute("content", val); };
+    var N = function (name, val) { if (val != null && val !== "") metaEnsure(name, "name").setAttribute("content", val); };
+    P("og:type", o.type || "website");
+    P("og:site_name", brand);
+    P("og:url", url);
+    if (o.title) { document.title = o.title; P("og:title", o.title); N("twitter:title", o.title); }
+    if (o.desc) { N("description", o.desc); P("og:description", o.desc); N("twitter:description", o.desc); }
+    var img = absUrl(o.image);
+    if (img) {
+      P("og:image", img); P("og:image:url", img); P("og:image:secure_url", img);
+      P("og:image:width", String(o.imgW || get(window.SITE, "seo.ogImageWidth") || 1200));
+      P("og:image:height", String(o.imgH || get(window.SITE, "seo.ogImageHeight") || 630));
+      P("og:image:alt", o.title || brand);
+      N("twitter:card", "summary_large_image");
+      N("twitter:image", img);
+    }
+  }
+
   function applySeo() {
     var SITE = window.SITE;
     // Favicon
@@ -185,40 +229,30 @@
       if (!link) { link = document.createElement("link"); link.rel = "icon"; document.head.appendChild(link); }
       link.setAttribute("href", fav);
     }
-    var setMeta = function (sel, val) {
-      if (!val) return;
-      var m = document.querySelector(sel);
-      if (m) m.setAttribute("content", val);
-    };
-    // Ảnh OG (áp mọi trang)
-    setMeta('meta[property="og:image"]', get(SITE, "seo.ogImage"));
-    // Tiêu đề & mô tả — chỉ áp cho TRANG CHỦ (đánh dấu bằng thẻ hero)
-    if ($(".hero")) {
-      var t = get(SITE, "seo.homeTitle");
-      if (t) { document.title = t; setMeta('meta[property="og:title"]', t); }
-      var d = get(SITE, "seo.homeDescription");
-      if (d) { setMeta('meta[name="description"]', d); setMeta('meta[property="og:description"]', d); }
-    }
+    // Trang chủ: dùng tiêu đề/mô tả SEO riêng; các trang khác: giữ title/desc sẵn có
+    var isHome = !!$(".hero");
+    setSeoTags({
+      title: isHome ? get(SITE, "seo.homeTitle") : null,
+      desc: isHome ? get(SITE, "seo.homeDescription") : null,
+      image: get(SITE, "seo.ogImage"),
+    });
   }
 
-  // Tạo/lấy thẻ meta theo tên
+  // Tạo/lấy thẻ meta theo tên/thuộc tính
   function metaEnsure(name, attr) {
     attr = attr || "name";
     var m = document.querySelector("meta[" + attr + '="' + name + '"]');
     if (!m) { m = document.createElement("meta"); m.setAttribute(attr, name); document.head.appendChild(m); }
     return m;
   }
-  // Áp SEO (title, description, keywords, OG) cho trang chi tiết từ dữ liệu mục
+  // Áp SEO đầy đủ cho trang chi tiết từ dữ liệu mục
   function applyItemSeo(item) {
     var brand = (window.SITE.brand && window.SITE.brand.name) || "";
     var title = item.seoTitle || ((item.name || item.title || "") + (brand ? " | " + brand : ""));
     document.title = title;
-    var desc = item.metaDescription || stripTags(item.excerpt || "") || "";
-    if (desc) { metaEnsure("description").setAttribute("content", desc); }
+    var desc = item.metaDescription || stripTags(item.excerpt || "") || get(window.SITE, "seo.homeDescription") || "";
     if (item.keywords) metaEnsure("keywords").setAttribute("content", item.keywords);
-    var ogt = document.querySelector('meta[property="og:title"]'); if (ogt) ogt.setAttribute("content", title);
-    var ogd = document.querySelector('meta[property="og:description"]'); if (ogd && desc) ogd.setAttribute("content", desc);
-    var ogi = document.querySelector('meta[property="og:image"]'); if (ogi && item.image) ogi.setAttribute("content", item.image);
+    setSeoTags({ title: title, desc: desc, image: item.image || get(window.SITE, "seo.ogImage"), type: "article" });
   }
   // 1 sản phẩm/bài có thể thuộc nhiều danh mục
   function inCategory(x, catId) {

@@ -19,7 +19,7 @@ window.SITE = {
     logoFull: "assets/img/logo-full.svg", // logo đầy đủ có chữ (màn đăng nhập)
     favicon: "assets/img/logo.svg",     // biểu tượng tab trình duyệt
     showBrandText: true,                // hiện chữ cạnh logo (tắt nếu logo đã có sẵn chữ)
-    domain: "stemlab.vn",
+    domain: "stemlab.edu.vn",
   },
 
   /* SEO & chia sẻ mạng xã hội cho trang chủ */
