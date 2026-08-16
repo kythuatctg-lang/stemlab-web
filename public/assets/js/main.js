@@ -430,7 +430,7 @@
         var node;
         if (isAbout) node = { label: c.name, href: "/gioi-thieu.html" };
         else if (parentIsAbout) node = { label: c.name, href: "/gioi-thieu.html#" + catSlug(c) };
-        else node = { label: c.name, href: categoryHref(c), ext: /^https?:/i.test(c.link || "") };
+        else node = { label: c.name, href: categoryHref(c), ext: /^https?:/i.test(c.link || "") || /^\/api\/file\//.test(c.link || "") };
         if (kids.length) node.children = kids;
         return node;
       });

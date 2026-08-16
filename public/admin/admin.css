@@ -408,6 +408,8 @@
 .about-adm-gallery .gadd { width: 92px; height: 92px; }
 .ht-btns { display: flex; gap: 8px; }
 .ht-btns input { flex: 1 1 50%; min-width: 0; }
+.doc-field { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.doc-field__name { color: var(--c-body); font-size: .92rem; }
 
 /* ---------- Bảng màu ---------- */
 .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; margin-bottom: 22px; }

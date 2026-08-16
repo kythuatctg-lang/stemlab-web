@@ -28,6 +28,7 @@ PUBLIC = ROOT / "public"
 DATA = ROOT / "tools" / ".dev-data.json"
 INBOX = ROOT / "tools" / ".dev-inbox.json"
 REVIEWS = ROOT / "tools" / ".dev-reviews.json"
+FILES_DIR = ROOT / "tools" / ".dev-files"
 PASSFILE = ROOT / "tools" / ".dev-pass.json"
 BACKUP_DIR = ROOT / "tools" / ".dev-backups"
 MAX_BACKUPS = 30
@@ -121,6 +122,24 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         p = urllib.parse.urlparse(self.path).path
         if p == "/api/settings":
             return self._json({"ok": True, "settings": load(DATA, {})})
+        if p.startswith("/api/file/"):
+            fid = p[len("/api/file/"):]
+            fp = FILES_DIR / fid
+            if ("/" in fid) or (".." in fid) or (not fp.exists()):
+                self.send_response(404); self.end_headers(); return
+            meta = load(FILES_DIR / (fid + ".meta.json"), {})
+            data = fp.read_bytes()
+            ctype = meta.get("type") or "application/octet-stream"
+            inline = ctype.startswith(("application/pdf", "image/", "text/"))
+            self.send_response(200)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Content-Length", str(len(data)))
+            if meta.get("name"):
+                disp = "inline" if inline else "attachment"
+                self.send_header("Content-Disposition", disp + '; filename="' + meta["name"].replace('"', "") + '"')
+            self.end_headers()
+            self.wfile.write(data)
+            return
         if p == "/api/reviews":
             qs = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
             product = (qs.get("product") or [""])[0]
@@ -159,6 +178,24 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     # ---------- POST ----------
     def do_POST(self):
         p = urllib.parse.urlparse(self.path).path
+        if p == "/api/admin/file":
+            if not self._authed():
+                return self._json({"ok": False, "error": "unauthorized"}, 401)
+            n = int(self.headers.get("content-length", 0) or 0)
+            raw = self.rfile.read(n) if n else b""
+            if not raw:
+                return self._json({"ok": False, "error": "empty"}, 400)
+            if len(raw) > 20 * 1024 * 1024:
+                return self._json({"ok": False, "error": "too_large"}, 413)
+            import uuid, re as _re
+            name = urllib.parse.unquote(self.headers.get("x-file-name", "file"))
+            ctype = self.headers.get("content-type", "application/octet-stream")
+            mext = _re.search(r"\.[a-z0-9]{1,8}$", name, _re.I)
+            fid = uuid.uuid4().hex + (mext.group(0).lower() if mext else "")
+            FILES_DIR.mkdir(exist_ok=True)
+            (FILES_DIR / fid).write_bytes(raw)
+            save(FILES_DIR / (fid + ".meta.json"), {"name": name, "type": ctype})
+            return self._json({"ok": True, "url": "/api/file/" + fid, "name": name})
         if p == "/api/admin/login":
             body = self._read_json()
             if (body.get("password") or "") == current_password():

@@ -6,5 +6,6 @@ node_modules/
 tools/.dev-data.json
 tools/.dev-inbox.json
 tools/.dev-reviews.json
+tools/.dev-files/
 tools/.dev-pass.json
 tools/.dev-backups/

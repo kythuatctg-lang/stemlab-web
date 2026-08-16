@@ -1000,6 +1000,7 @@
         { k: "parent", l: "Mục cha (để trống = cấp 1)", type: "select", optionsFn: parentOptions },
         { k: "type", l: "Loại danh mục", type: "select", options: [["product", "Sản phẩm"], ["news", "Tin tức"], ["custom", "Liên kết tuỳ chọn"]] },
         { k: "link", l: "Link liên kết (để trống = tự sinh)", c2: true },
+        { k: "docFile", l: "Tài liệu đính kèm (PDF/Word...)", type: "file", c2: true },
       ].concat(SEO_FIELDS).concat([
         { k: "excerpt", l: "Tóm tắt", type: "area", rich: true, c2: true },
         { k: "content", l: "Nội dung", type: "area", big: true, rich: true, c2: true },
@@ -1099,6 +1100,20 @@
     return draft[cfg.draftKey];
   }
 
+  function docFieldInner(f, item) {
+    var nm = item.docName || "";
+    var isFileLink = /^\/api\/file\//.test(item.link || "");
+    var label = nm ? "📄 " + escHtml(nm) : (isFileLink ? "📄 (đã đính kèm)" : "Chưa có file");
+    return "<label>" + f.l + "</label>" +
+      '<div class="doc-field">' +
+        '<button type="button" class="btn btn--ghost btn--sm" data-doc-upload>📎 Chọn file</button>' +
+        '<span class="doc-field__name" data-doc-name>' + label + "</span>" +
+        ((nm || isFileLink) ? '<button type="button" class="btn btn--ghost btn--sm" data-doc-clear>Xoá file</button>' : "") +
+      "</div>" +
+      '<input type="file" data-doc-input accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>' +
+      '<p class="hint" style="margin:6px 0 0">Tải lên xong, ô “Link liên kết” tự trỏ tới file — bấm danh mục ở menu sẽ mở file.</p>';
+  }
+
   function fieldHtml(f, item) {
     var v = item[f.k];
     var inp;
@@ -1122,6 +1137,9 @@
       }).join("");
       return '<div class="col-2"><label>' + f.l + '</label><div class="gallery-edit" data-gallery="' + f.k + '">' + thumbs +
         '<button type="button" class="gadd" data-gadd>＋ Thêm ảnh</button></div></div>';
+    }
+    if (f.type === "file") {
+      return '<div' + (f.c2 ? ' class="col-2"' : "") + ' data-doc-wrap>' + docFieldInner(f, item) + "</div>";
     }
     if (f.type === "select") {
       var opts;
@@ -1290,7 +1308,44 @@
       (editing.item[key] || []).splice(+rm.dataset.gremove, 1);
       refreshGallery(key);
     }
+    // Tài liệu đính kèm (PDF/Word)
+    var up = e.target.closest("[data-doc-upload]");
+    if (up) { var inp = up.closest("[data-doc-wrap]").querySelector("[data-doc-input]"); if (inp) inp.click(); return; }
+    var clr = e.target.closest("[data-doc-clear]");
+    if (clr && editing) {
+      if (/^\/api\/file\//.test(editing.item.link || "")) editing.item.link = "";
+      editing.item.docName = "";
+      var li = $('[data-if="link"]', $("#modal-body")); if (li) li.value = editing.item.link || "";
+      refreshDocField();
+    }
   });
+  // Chọn & tải file tài liệu lên
+  $("#modal-body").addEventListener("change", function (e) {
+    var inp = e.target.closest("[data-doc-input]");
+    if (!inp || !editing) return;
+    var file = inp.files && inp.files[0]; inp.value = "";
+    if (!file) return;
+    if (file.size > 20 * 1024 * 1024) { alert("File quá lớn (tối đa 20MB)."); return; }
+    var nameEl = $("[data-doc-name]", $("#modal-body")); if (nameEl) nameEl.textContent = "⏳ Đang tải lên…";
+    fetch("/api/admin/file", {
+      method: "POST", credentials: "same-origin",
+      headers: { "X-File-Name": encodeURIComponent(file.name), "Content-Type": file.type || "application/octet-stream" },
+      body: file,
+    }).then(function (r) { return r.json(); }).then(function (d) {
+      if (d && d.ok && d.url) {
+        editing.item.link = d.url; editing.item.docName = d.name || file.name;
+        var li = $('[data-if="link"]', $("#modal-body")); if (li) li.value = d.url;
+        refreshDocField();
+      } else {
+        alert("Tải file thất bại" + (d && d.error ? " (" + d.error + ")" : "") + ".");
+        refreshDocField();
+      }
+    }).catch(function () { alert("Không kết nối được máy chủ."); refreshDocField(); });
+  });
+  function refreshDocField() {
+    var wrap = $("[data-doc-wrap]", $("#modal-body"));
+    if (wrap && editing) wrap.innerHTML = docFieldInner({ l: "Tài liệu đính kèm (PDF/Word...)" }, editing.item);
+  }
   $("#gallery-file").addEventListener("change", function () {
     var files = this.files ? Array.prototype.slice.call(this.files) : []; this.value = "";
     if (!files.length || !editing || !galleryTarget) return;
