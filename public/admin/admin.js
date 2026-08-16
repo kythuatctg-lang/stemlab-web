@@ -1325,19 +1325,19 @@
     if (!inp || !editing) return;
     var file = inp.files && inp.files[0]; inp.value = "";
     if (!file) return;
-    if (file.size > 20 * 1024 * 1024) { alert("File quá lớn (tối đa 20MB)."); return; }
+    if (file.size > 30 * 1024 * 1024) { alert("File quá lớn (tối đa 30MB)."); return; }
     var nameEl = $("[data-doc-name]", $("#modal-body")); if (nameEl) nameEl.textContent = "⏳ Đang tải lên…";
     fetch("/api/admin/file", {
       method: "POST", credentials: "same-origin",
       headers: { "X-File-Name": encodeURIComponent(file.name), "Content-Type": file.type || "application/octet-stream" },
       body: file,
-    }).then(function (r) { return r.json(); }).then(function (d) {
+    }).then(function (r) { return r.json().catch(function () { return { ok: false }; }); }).then(function (d) {
       if (d && d.ok && d.url) {
         editing.item.link = d.url; editing.item.docName = d.name || file.name;
         var li = $('[data-if="link"]', $("#modal-body")); if (li) li.value = d.url;
         refreshDocField();
       } else {
-        alert("Tải file thất bại" + (d && d.error ? " (" + d.error + ")" : "") + ".");
+        alert((d && d.message) || ("Tải file thất bại" + (d && d.error ? " (" + d.error + ")" : "") + "."));
         refreshDocField();
       }
     }).catch(function () { alert("Không kết nối được máy chủ."); refreshDocField(); });

@@ -185,8 +185,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             raw = self.rfile.read(n) if n else b""
             if not raw:
                 return self._json({"ok": False, "error": "empty"}, 400)
-            if len(raw) > 20 * 1024 * 1024:
-                return self._json({"ok": False, "error": "too_large"}, 413)
+            if len(raw) > 30 * 1024 * 1024:
+                return self._json({"ok": False, "error": "too_large", "message": "File tối đa 30MB."}, 413)
             import uuid, re as _re
             name = urllib.parse.unquote(self.headers.get("x-file-name", "file"))
             ctype = self.headers.get("content-type", "application/octet-stream")
