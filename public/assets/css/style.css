@@ -336,7 +336,10 @@ input, textarea, select { font: inherit; }
   font-weight: 600;
   font-size: 0.95rem;
   white-space: nowrap;
+  text-transform: uppercase;
 }
+/* Chữ in hoa cho cả mục con trong dropdown */
+.nav__sub a { text-transform: uppercase; }
 .nav__link:hover,
 .nav__item.is-open > .nav__link { background: var(--c-primary-soft); color: var(--c-primary-700); }
 .nav__link[aria-current="page"] { color: var(--c-primary); }
