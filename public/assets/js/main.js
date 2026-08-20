@@ -1462,6 +1462,9 @@
     if (section) section.style.display = "";
 
     var main = items[0];
+    // Tiêu đề khối tự đồng bộ theo tên sản phẩm nổi bật (đổi tên SP -> tiêu đề đổi theo)
+    var titleEl = section && section.querySelector('[data-site="home.rio.title"]');
+    if (titleEl && main.name) titleEl.textContent = main.name;
     var mapsTitle = get(window.SITE, "home.rio.mapsTitle") || "Sản phẩm liên quan";
     var btn = get(window.SITE, "home.rio.btn") || "Tìm hiểu thêm";
 
