@@ -259,6 +259,19 @@
     return (Array.isArray(x.categories) && x.categories.indexOf(catId) > -1) ||
       x.category === catId || x.group === catId;
   }
+  // Dựng bảng "Thông số kỹ thuật" từ text (mỗi dòng "Tên: Giá trị")
+  function specsTableHtml(specsText) {
+    var rows = String(specsText || "").split(/\r?\n/).map(function (line) {
+      line = line.trim(); if (!line) return null;
+      var idx = line.indexOf(":"); if (idx < 0) idx = line.indexOf("|");
+      return idx < 0 ? { name: line, value: "" } : { name: line.slice(0, idx).trim(), value: line.slice(idx + 1).trim() };
+    }).filter(Boolean);
+    if (!rows.length) return "";
+    return '<table class="pd-specs"><tbody>' + rows.map(function (r) {
+      return "<tr><th>" + esc(r.name) + "</th><td>" + esc(r.value) + "</td></tr>";
+    }).join("") + "</tbody></table>";
+  }
+
   // Chuẩn hoá "danh mục nguồn" (nhập id / slug / tên) về đúng id danh mục
   function resolveCatId(key) {
     if (!key) return key;
@@ -1478,7 +1491,7 @@
       '<div class="split rio-hero">' +
         '<div class="split__media reveal"><div class="feature__media"><img src="' + esc(main.image) + '" alt="' + esc(main.name) + '" loading="lazy"></div></div>' +
         '<div class="split__content reveal">' +
-          '<div class="prose">' + (main.content || "<p>" + escText(main.excerpt || "") + "</p>") + "</div>" +
+          '<div class="prose">' + (specsTableHtml(main.specs) || "<p>" + escText(main.excerpt || "") + "</p>") + "</div>" +
           '<a class="btn btn--accent" style="margin-top:22px" href="' + esc(itemUrl(main)) + '">' + esc(btn) + "</a>" +
         "</div>" +
       "</div>" +
