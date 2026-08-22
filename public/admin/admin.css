@@ -410,6 +410,8 @@
 .ht-btns input { flex: 1 1 50%; min-width: 0; }
 .doc-field { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .doc-field__name { color: var(--c-body); font-size: .92rem; }
+.optimize-box { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  border: 1px solid var(--c-primary); background: var(--c-primary-soft); border-radius: var(--r-md); padding: 14px 16px; margin: 6px 0 22px; }
 
 /* ---------- Bảng màu ---------- */
 .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; margin-bottom: 22px; }

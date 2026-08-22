@@ -255,19 +255,16 @@
     });
     $(fileId).addEventListener("change", function () {
       var file = this.files && this.files[0];
-      if (!file) return;
-      if (file.size > 850 * 1024) {
-        alert("Ảnh quá lớn (tối đa ~850KB). Vui lòng dùng ảnh nhẹ hơn hoặc file SVG.");
-        this.value = ""; return;
-      }
-      var reader = new FileReader();
-      reader.onload = function () {
-        setPath(draft, key, reader.result);
-        $(previewId).src = reader.result;
-        markDirty();
-      };
-      reader.readAsDataURL(file);
       this.value = "";
+      if (!file) return;
+      if (file.size > 5 * 1024 * 1024) { alert("Ảnh quá lớn (tối đa ~5MB)."); return; }
+      $(previewId).src = "";
+      uploadImageFile(file, { maxW: 800, quality: 0.9 }, function (url) {
+        if (!url) { alert("Tải ảnh thất bại."); return; }
+        setPath(draft, key, url);
+        $(previewId).src = adminSrc(url);
+        markDirty();
+      });
     });
   }
 
@@ -362,13 +359,14 @@
     this.value = "";
     if (!file || idx < 0) return;
     if (file.size > 15 * 1024 * 1024) { alert("Ảnh quá lớn (tối đa ~15MB)."); return; }
-    compressImage(file, function (dataUrl) {
+    uploadImageFile(file, { maxW: 1920, quality: 0.82 }, function (url) {
+      if (!url) { alert("Tải ảnh thất bại."); return; }
       var slides = heroSlides();
       if (!slides[idx]) slides[idx] = {};
-      slides[idx].image = dataUrl;
+      slides[idx].image = url;
       renderSlides();
       markDirty();
-    }, { maxW: 1920, quality: 0.82 });
+    });
   });
 
   // Ô "cách hiển thị" và "thời gian mỗi slide"
@@ -412,6 +410,108 @@
     img.onerror = function () { URL.revokeObjectURL(url); fallback(); };
     img.src = url;
   }
+
+  // Nén ảnh -> Blob (giữ SVG/file lạ nguyên bản). done(blob, name, type)
+  function compressToBlob(file, opts, done) {
+    opts = opts || {};
+    var maxW = opts.maxW || 1920, quality = opts.quality || 0.82;
+    if (file.type === "image/svg+xml" || !/^image\//.test(file.type)) { done(file, file.name || "file", file.type || "application/octet-stream"); return; }
+    var url = URL.createObjectURL(file);
+    var img = new Image();
+    var base = (file.name || "image").replace(/\.[^.]+$/, "") || "image";
+    img.onload = function () {
+      try {
+        var w = img.naturalWidth || maxW, h = img.naturalHeight || Math.round(maxW * 9 / 16);
+        if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+        var c = document.createElement("canvas"); c.width = w; c.height = h;
+        c.getContext("2d").drawImage(img, 0, 0, w, h);
+        c.toBlob(function (blob) {
+          URL.revokeObjectURL(url);
+          if (blob) { var ext = blob.type === "image/webp" ? ".webp" : (blob.type === "image/png" ? ".png" : ".jpg"); done(blob, base + ext, blob.type); }
+          else done(file, file.name || "image", file.type);
+        }, "image/webp", quality);
+      } catch (e) { URL.revokeObjectURL(url); done(file, file.name || "image", file.type); }
+    };
+    img.onerror = function () { URL.revokeObjectURL(url); done(file, file.name || "image", file.type); };
+    img.src = url;
+  }
+  // Gửi 1 blob/file lên KV -> trả URL /api/file/<id>. done(url|null, resp)
+  function postFile(body, name, type, done) {
+    fetch("/api/admin/file", {
+      method: "POST", credentials: "same-origin",
+      headers: { "X-File-Name": encodeURIComponent(name || "file"), "Content-Type": type || "application/octet-stream" },
+      body: body,
+    }).then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+      .then(function (d) { done(d && d.ok ? d.url : null, d); })
+      .catch(function () { done(null); });
+  }
+  // Nén + upload ảnh -> trả URL (thay vì base64). done(url|null)
+  function uploadImageFile(file, opts, done) {
+    compressToBlob(file, opts, function (blob, name, type) { postFile(blob, name, type, done); });
+  }
+
+  /* ---------- Tối ưu ảnh: chuyển base64 trong cấu hình -> file riêng (URL) ---------- */
+  function collectDataImages(root) {
+    var tasks = [];
+    (function walk(o) {
+      if (!o || typeof o !== "object") return;
+      if (Array.isArray(o)) {
+        for (var i = 0; i < o.length; i++) {
+          var v = o[i];
+          if (typeof v === "string" && /^data:image\//.test(v)) tasks.push([o, i]);
+          else walk(v);
+        }
+      } else {
+        for (var k in o) {
+          if (!Object.prototype.hasOwnProperty.call(o, k)) continue;
+          var v2 = o[k];
+          if (typeof v2 === "string" && /^data:image\//.test(v2)) tasks.push([o, k]);
+          else walk(v2);
+        }
+      }
+    })(root);
+    return tasks;
+  }
+  function uploadDataUrl(dataUrl) {
+    return fetch(dataUrl).then(function (r) { return r.blob(); }).then(function (blob) {
+      var t = ((blob.type || "image/jpeg").split("/")[1] || "jpg").replace("jpeg", "jpg").replace("svg+xml", "svg");
+      return new Promise(function (res) { postFile(blob, "img." + t, blob.type || "image/jpeg", function (url) { res(url); }); });
+    }).catch(function () { return null; });
+  }
+  (function bindOptimize() {
+    var optBtn = document.getElementById("optimize-images");
+    if (!optBtn) return;
+    var optimizing = false;
+    optBtn.addEventListener("click", function () {
+      if (optimizing) return;
+      var st = $("#optimize-status");
+      var tasks = collectDataImages(draft);
+      if (!tasks.length) { if (st) { st.textContent = "Không có ảnh base64 nào cần tối ưu."; st.className = "panel-save__status is-ok"; } return; }
+      if (!confirm("Sẽ chuyển " + tasks.length + " ảnh ra khỏi cấu hình để web nhẹ & nhanh hơn.\nQuá trình mất khoảng 1–2 phút — vui lòng KHÔNG đóng trang. Tiếp tục?")) return;
+      optimizing = true; optBtn.disabled = true;
+      var i = 0, done = 0, failed = 0;
+      function next() {
+        if (i >= tasks.length) {
+          if (st) st.textContent = "Đang lưu…";
+          saveAll(function () {
+            optimizing = false; optBtn.disabled = false;
+            var msg = "✓ Đã tối ưu " + done + " ảnh" + (failed ? (", " + failed + " ảnh lỗi") : "") + ".";
+            if (st) { st.textContent = msg; st.className = "panel-save__status is-ok"; }
+            alert("Hoàn tất! " + msg + " Web sẽ tải nhẹ hơn nhiều.");
+          });
+          return;
+        }
+        var t = tasks[i];
+        if (st) { st.textContent = "Đang tối ưu ảnh " + (i + 1) + "/" + tasks.length + "…"; st.className = "panel-save__status"; }
+        uploadDataUrl(t[0][t[1]]).then(function (url) {
+          if (url) { t[0][t[1]] = url; done++; } else failed++;
+          i++; next();
+        });
+      }
+      next();
+    });
+  })();
+
   // Ảnh mặc định dùng đường dẫn tương đối từ gốc site -> thêm "../" để xem trong /admin/
   function adminSrc(img) {
     if (!img) return "";
@@ -594,12 +694,13 @@
       var f = this.files && this.files[0]; this.value = "";
       if (!f || !aboutUpload) return;
       if (f.size > 15 * 1024 * 1024) { alert("Ảnh quá lớn (tối đa ~15MB)."); return; }
-      compressImage(f, function (dataUrl) {
+      uploadImageFile(f, { maxW: 1200, quality: 0.82 }, function (url) {
+        if (!url) { alert("Tải ảnh thất bại."); return; }
         var a = ensureAbout();
-        if (aboutUpload.gallery) a.intro.gallery.push(dataUrl);
-        else if (a[aboutUpload.list] && a[aboutUpload.list].items[aboutUpload.i]) a[aboutUpload.list].items[aboutUpload.i][aboutUpload.f] = dataUrl;
+        if (aboutUpload.gallery) a.intro.gallery.push(url);
+        else if (a[aboutUpload.list] && a[aboutUpload.list].items[aboutUpload.i]) a[aboutUpload.list].items[aboutUpload.i][aboutUpload.f] = url;
         renderAboutEditor(); markDirty();
-      }, { maxW: 1200, quality: 0.82 });
+      });
     });
   })();
 
@@ -720,10 +821,11 @@
       if (!f || !heroTextUpload) return;
       if (f.size > 15 * 1024 * 1024) { alert("Ảnh quá lớn (tối đa ~15MB)."); return; }
       var isBg = heroTextUpload.f === "bg";
-      compressImage(f, function (dataUrl) {
+      uploadImageFile(f, { maxW: isBg ? 1920 : 900, quality: 0.82 }, function (url) {
+        if (!url) { alert("Tải ảnh thất bại."); return; }
         var list = heroTexts();
-        if (list[heroTextUpload.i]) { list[heroTextUpload.i][heroTextUpload.f] = dataUrl; renderHeroTextEditor(); markDirty(); }
-      }, { maxW: isBg ? 1920 : 900, quality: 0.82 });
+        if (list[heroTextUpload.i]) { list[heroTextUpload.i][heroTextUpload.f] = url; renderHeroTextEditor(); markDirty(); }
+      });
     });
   })();
 
@@ -1353,7 +1455,7 @@
     if (!Array.isArray(editing.item[key])) editing.item[key] = [];
     files.forEach(function (f) {
       if (f.size > 15 * 1024 * 1024) return;
-      compressImage(f, function (dataUrl) { editing.item[key].push(dataUrl); refreshGallery(key); }, { maxW: 1200, quality: 0.82 });
+      uploadImageFile(f, { maxW: 1200, quality: 0.82 }, function (url) { if (url) { editing.item[key].push(url); refreshGallery(key); } });
     });
   });
 
@@ -1361,10 +1463,12 @@
     var file = this.files && this.files[0]; this.value = "";
     if (!file || !itemUpload || !editing) return;
     if (file.size > 15 * 1024 * 1024) { alert("Ảnh quá lớn (tối đa ~15MB)."); return; }
-    compressImage(file, function (dataUrl) {
-      editing.item.image = dataUrl;
-      var img = $("#modal-img"); if (img) img.src = dataUrl;
-    }, { maxW: 1200, quality: 0.82 });
+    var img = $("#modal-img"); if (img) img.src = "";
+    uploadImageFile(file, { maxW: 1200, quality: 0.82 }, function (url) {
+      if (!url) { alert("Tải ảnh thất bại."); return; }
+      editing.item.image = url;
+      if (img) img.src = adminSrc(url);
+    });
   });
 
   // Lưu mục trong popup

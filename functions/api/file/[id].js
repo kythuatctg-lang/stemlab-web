@@ -18,7 +18,7 @@ export async function onRequestGet({ params, env }) {
     if (obj) {
       const headers = new Headers();
       obj.writeHttpMetadata(headers);
-      headers.set("Cache-Control", "public, max-age=3600");
+      headers.set("Cache-Control", "public, max-age=31536000, immutable");
       const type = headers.get("content-type") || "application/octet-stream";
       const name = obj.customMetadata && obj.customMetadata.name;
       const disp = disposition(type, name);
@@ -34,7 +34,7 @@ export async function onRequestGet({ params, env }) {
       let meta = {};
       try { meta = (await env.SETTINGS.get("filemeta:" + id, "json")) || {}; } catch (e) {}
       const type = meta.type || "application/octet-stream";
-      const headers = { "Content-Type": type, "Cache-Control": "public, max-age=3600" };
+      const headers = { "Content-Type": type, "Cache-Control": "public, max-age=31536000, immutable" };
       const disp = disposition(type, meta.name);
       if (disp) headers["Content-Disposition"] = disp;
       return new Response(buf, { headers });
