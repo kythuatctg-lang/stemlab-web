@@ -313,8 +313,8 @@ input, textarea, select { font: inherit; }
 .brand { display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .brand__mark { width: 40px; height: 40px; }
 .brand__text { display: flex; flex-direction: column; line-height: 1.1; }
-.brand__name { font-weight: 800; font-size: 1.18rem; color: var(--c-primary-700); letter-spacing: -0.02em; }
-.brand__tag { font-size: 0.68rem; color: var(--c-muted); letter-spacing: 0.14em; text-transform: uppercase; }
+.brand__name { font-weight: 800; font-size: 2rem; color: var(--c-primary-700); letter-spacing: -0.02em; }
+.brand__tag { font-size: 0.68rem; color: var(--c-muted); letter-spacing: 0.14em; }
 
 .nav { margin-left: auto; }
 .nav__list {
@@ -334,7 +334,7 @@ input, textarea, select { font: inherit; }
   border-radius: var(--r-sm);
   color: var(--c-ink);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   white-space: nowrap;
   text-transform: uppercase;
 }
