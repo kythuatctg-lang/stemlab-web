@@ -311,8 +311,8 @@ input, textarea, select { font: inherit; }
 }
 
 .brand { display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.brand__mark { width: 40px; height: 40px; }
-.brand__text { display: flex; flex-direction: column; line-height: 1.1; }
+.brand__mark { width: 58px; height: 58px; }
+.brand__text { display: flex; flex-direction: column; gap: 5px; line-height: 1.1; }
 .brand__name { font-weight: 800; font-size: 2rem; color: var(--c-primary-700); letter-spacing: -0.02em; }
 .brand__tag { font-size: 0.68rem; color: var(--c-muted); letter-spacing: 0.14em; }
 
