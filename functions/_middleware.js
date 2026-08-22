@@ -82,9 +82,15 @@ export async function onRequest(context) {
     res = new Response(router.body, { status: 200, headers: { "content-type": "text/html; charset=utf-8" } });
   }
 
-  // (2) Chèn OG cho HTML
+  // (2) Chèn OG cho HTML — CHỈ cho bot (FB/Zalo/Google...) để tránh parse cấu hình
+  //     lớn trên mọi request của người dùng thường (gây 1102). Người dùng thường
+  //     đã có SEO/OG do JS tự điền phía client.
   const ct = res.headers.get("content-type") || "";
   if (!ct.includes("text/html")) return res;
+
+  const ua = request.headers.get("user-agent") || "";
+  const isBot = /bot|crawl|spider|slurp|facebookexternalhit|facebot|whatsapp|telegram|zalo|slack|discord|pinterest|linkedin|embedly|preview|twitter|Google-InspectionTool/i.test(ua);
+  if (!isBot) return res;
 
   const seo = await computeSeo(env, url);
   if (!seo) return res;
