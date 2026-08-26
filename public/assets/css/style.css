@@ -740,6 +740,9 @@ input, textarea, select { font: inherit; }
 
 /* ---------- 10b. Khối Rio (sản phẩm nổi bật + lưới liên quan) ---------- */
 .rio-hero { margin-bottom: clamp(36px, 4vw, 60px); }
+/* Ảnh sản phẩm hoà vào nền xanh (khung trong suốt) */
+.rio-hero .feature__media { background: transparent; padding: 0; }
+.rio-hero .feature__media::before { display: none; }
 .rio-maps-title {
   text-align: center;
   font-size: clamp(1.15rem, 1rem + 0.7vw, 1.7rem);
