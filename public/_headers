@@ -5,6 +5,10 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
 
+# Trang quản trị -> luôn lấy bản mới nhất (revalidate mỗi lần)
+/admin/*
+  Cache-Control: no-cache
+
 # CSS/JS dùng chung tên file -> phải revalidate để bản deploy mới hiện ngay
 /assets/js/*
   Cache-Control: public, max-age=0, must-revalidate
