@@ -318,6 +318,9 @@
     });
     var pol = $("#footer-policies");
     if (pol && Array.isArray(f.policies) && f.policies.length) pol.innerHTML = linkHtml(f.policies).join("");
+    // Chứng nhận / badge (mã nhúng, vd logo Bộ Công Thương) — dưới phần "Kết nối"
+    var badges = $("[data-footer-badges]");
+    if (badges) badges.innerHTML = f.badges ? String(f.badges) : "";
   }
 
   // Trang Giới thiệu (landing) — dựng các section từ SITE.about

@@ -599,7 +599,10 @@
     var h = "";
     h += '<div class="fbox"><h4 class="fbox__h">Khối mạng xã hội</h4>' +
       '<div class="field"><label>Tiêu đề (trên các icon mạng xã hội)</label>' +
-      '<input type="text" data-ff-scalar="connectTitle" value="' + escAttr(f.connectTitle) + '"></div></div>';
+      '<input type="text" data-ff-scalar="connectTitle" value="' + escAttr(f.connectTitle) + '"></div>' +
+      '<div class="field"><label>Chứng nhận / Badge (dán mã nhúng — vd logo Bộ Công Thương)</label>' +
+      '<textarea data-ff-scalar="badges" rows="4" placeholder="&lt;a href=&quot;...&quot;&gt;&lt;img src=&quot;...&quot;&gt;&lt;/a&gt;">' + escHtml(f.badges || "") + "</textarea>" +
+      '<p class="hint" style="margin:4px 0 0">Dán nguyên đoạn mã nhúng logo (Bộ Công Thương, DMCA…). Hiển thị ngay dưới phần “Kết nối” ở chân trang. Có thể dán nhiều logo liền nhau.</p></div></div>';
 
     f.cols.forEach(function (c, ci) {
       h += '<div class="fbox fcol" data-fscope="col' + ci + '">' +

@@ -161,6 +161,8 @@ window.SITE = {
   footer: {
     connectTitle: "Kết nối với chúng tôi",
     contactTitle: "Thông tin liên hệ",
+    badges: "",   // mã nhúng chứng nhận (vd logo Bộ Công Thương) — chỉnh trong Quản trị › Footer
+
     cols: [
       {
         title: "Sản phẩm",
