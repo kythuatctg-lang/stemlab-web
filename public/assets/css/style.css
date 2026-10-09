@@ -1358,7 +1358,8 @@ input, textarea, select { font: inherit; }
 .prose { font-size: 1.02rem; }
 .prose h2 { margin-top: 1.6em; }
 .prose h3 { margin-top: 1.4em; }
-.prose img { border-radius: var(--r-lg); margin-block: 1.4em; }
+/* Ảnh trong nội dung bài: luôn co giãn theo khung, bỏ qua width/height cố định (tránh méo trên mobile) */
+.prose img { border-radius: var(--r-lg); margin-block: 1.4em; max-width: 100% !important; height: auto !important; }
 .prose blockquote {
   margin: 1.6em 0;
   padding: 4px 0 4px 22px;
