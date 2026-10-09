@@ -1534,8 +1534,29 @@
     if (Array.isArray(window.POSTS)) window.POSTS.sort(function (a, b) { return postTime(b) - postTime(a); });
   }
 
+  // Thẻ "Nổi bật" lớn đầu trang Tin tức: lấy bài nổi bật mới nhất (hoặc bài mới nhất nếu không có)
+  function renderNewsFeatured() {
+    var el = $("#news-featured");
+    if (!el || !window.POSTS || !window.POSTS.length) return;
+    var p = window.POSTS.filter(function (x) { return x && x.featured; })[0] || window.POSTS[0];
+    var u = p.externalLink ? p.externalLink : itemUrl(p);
+    var ext = p.externalLink ? ' target="_blank" rel="noopener"' : "";
+    var meta = [p.dateLabel, p.categoryLabel].filter(Boolean).map(esc).join(" · ");
+    el.innerHTML =
+      "<div>" +
+        '<span class="badge badge--accent">Nổi bật</span>' +
+        '<h2 style="margin:12px 0 10px;font-size:clamp(1.3rem,1rem+1.2vw,2rem)">' +
+          '<a href="' + esc(u) + '"' + ext + ' style="color:inherit">' + esc(p.title) + "</a></h2>" +
+        '<p class="news-card__date">' + meta + "</p>" +
+        "<p>" + escText(p.excerpt) + "</p>" +
+        '<a class="btn btn--primary" href="' + esc(u) + '"' + ext + ">Đọc bài viết</a>" +
+      "</div>" +
+      '<a href="' + esc(u) + '"' + ext + '><img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" width="800" height="500" loading="lazy"></a>';
+  }
+
   function refreshCatalog() {
     sortPostsByDate();
+    renderNewsFeatured();
     renderFeaturedKits();
     renderRioBlock();
     renderRoverBlock();
