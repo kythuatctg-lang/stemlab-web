@@ -1521,7 +1521,21 @@
     initReveal();
   }
 
+  // Thời điểm bài viết để sắp xếp: ưu tiên "date" (ISO); nếu trống -> suy ra từ "dateLabel" dd/mm/yyyy
+  function postTime(p) {
+    if (!p) return 0;
+    if (p.date) { var t = Date.parse(p.date); if (!isNaN(t)) return t; }
+    var m = /(\d{1,2})\s*[\/\-.]\s*(\d{1,2})\s*[\/\-.]\s*(\d{4})/.exec(p.dateLabel || "");
+    if (m) return Date.UTC(+m[3], +m[2] - 1, +m[1]);
+    return 0;
+  }
+  // Sắp xếp bài viết MỚI NHẤT lên đầu (dùng cho trang chủ + trang Tin tức)
+  function sortPostsByDate() {
+    if (Array.isArray(window.POSTS)) window.POSTS.sort(function (a, b) { return postTime(b) - postTime(a); });
+  }
+
   function refreshCatalog() {
+    sortPostsByDate();
     renderFeaturedKits();
     renderRioBlock();
     renderRoverBlock();

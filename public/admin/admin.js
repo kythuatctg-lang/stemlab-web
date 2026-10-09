@@ -1354,7 +1354,39 @@
       language: "vi",
       height: ta.getAttribute("data-big") ? 260 : 110,
       removeButtons: "",
+      // Bật tab "Tải lên" trong hộp thoại Ảnh + kéo-thả/dán ảnh (dùng XHR, nối endpoint /api/admin/file)
+      filebrowserImageUploadUrl: "/api/admin/file",
+      filebrowserUploadUrl: "/api/admin/file",
+      filebrowserUploadMethod: "xhr",
+      clipboard_handleImages: true,
     };
+  }
+
+  // Nối cơ chế tải ảnh của CKEditor vào endpoint /api/admin/file:
+  // - fileUploadRequest: nén ảnh -> WebP rồi gửi raw body + header X-File-Name (đúng giao thức endpoint)
+  // - fileUploadResponse: đọc {ok,url} của ta -> trả URL ảnh cho editor
+  function bindCkUpload(ed) {
+    ed.on("fileUploadRequest", function (evt) {
+      var loader = evt.data.fileLoader, xhr = loader.xhr;
+      compressToBlob(loader.file, { maxW: 1280, quality: 0.85 }, function (blob, name, type) {
+        try {
+          xhr.open("POST", loader.uploadUrl, true);
+          xhr.withCredentials = true;
+          xhr.setRequestHeader("X-File-Name", encodeURIComponent(name || "image"));
+          xhr.setRequestHeader("Content-Type", type || "application/octet-stream");
+          xhr.send(blob);
+        } catch (e) { try { loader.message = "Tải ảnh thất bại"; loader.changeStatus("error"); } catch (e2) {} }
+      });
+      evt.stop(); // tự gửi request, bỏ qua FormData mặc định của CKEditor
+    }, null, null, 4);
+
+    ed.on("fileUploadResponse", function (evt) {
+      evt.stop();
+      var data = evt.data, resp = null;
+      try { resp = JSON.parse(data.fileLoader.xhr.responseText); } catch (e) {}
+      if (resp && resp.ok && resp.url) { data.url = resp.url; }
+      else { data.message = (resp && (resp.message || resp.error)) || "Tải ảnh thất bại"; evt.cancel(); }
+    }, null, null, 4);
   }
 
   function initEditorsIn(container) {
@@ -1364,6 +1396,7 @@
       try {
         var ed = window.CKEDITOR.replace(ta, ckConfig(ta));
         ta.__ck = ed;
+        bindCkUpload(ed);
         ed.on("change", function () {
           ta.value = ed.getData();
           ta.dispatchEvent(new Event("input", { bubbles: true })); // tái dùng logic cập nhật draft
